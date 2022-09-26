@@ -1,5 +1,6 @@
 //kopplar ihop js filen med min canvas
 const canvas = document.getElementById('canvas1');
+//get context(2d) ger metoder och andra kommandon för 2d målning(drawing)
 const context = canvas.getContext('2d');
 
 //används för att allt ska fungera inom canvas ramarna
@@ -44,6 +45,7 @@ canvas.addEventListener('mousedown' , function(event){
 
 
 //motståndare
+
 
 //skott som de goda karaktärerna kommer skjuta
 
