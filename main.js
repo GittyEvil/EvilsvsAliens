@@ -41,6 +41,30 @@ canvas.addEventListener('mousedown' , function(event){
     console.log(Mouse.x, Mouse.y)
 });
 
+//vet inte om jag behöver lägga till fler eventlisteners för mus 
+
+//mittenlinje
+context.beginPath();
+context.moveTo(350,0);
+context.lineTo(350,1600);
+context.closePath();
+context.stroke();
+
+//översta sträck
+context.beginPath();
+context.moveTo(0,500);
+context.lineTo(800,500);
+context.closePath();
+context.stroke();
+
+//understa sträck
+context.beginPath();
+context.moveTo(0,1100);
+context.lineTo(800,1100);
+context.closePath();
+context.stroke();
+
+
 //karaktärer
 
 
