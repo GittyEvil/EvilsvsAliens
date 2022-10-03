@@ -102,7 +102,7 @@ function drawImage() {
     const image = new Image();
     image.src = 'trooper.png';
     image.onload = () => {
-        ctx.drawImage(image, 0, 0,200,200)
+        context.drawImage(image, 0, 0,200,200)
     }
 
 }
