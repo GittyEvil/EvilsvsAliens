@@ -108,7 +108,7 @@ function drawImage() {
 }
 
 drawImage()
-    
+
 
 //karaktärer
 

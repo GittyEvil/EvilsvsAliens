@@ -19,8 +19,8 @@ body {
 /* canvas boxen */
 #canvas1 {
     background-color: lightgrey ;
-    width: 1800px;
-    height: 900px;
+    width: 1700px;
+    height: 800px;
     border: 4px solid black;
 }
 
