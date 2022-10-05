@@ -4,8 +4,8 @@ const canvas = document.getElementById('canvas1');
 const context = canvas.getContext('2d');
 
 //används för att allt ska fungera inom canvas ramarna
-canvas.width = 700;
-canvas.height = 1600;
+canvas.width = 1700;
+canvas.height = 700;
 
 //poängsystememt
 let score = 0;
@@ -43,61 +43,7 @@ canvas.addEventListener('mousedown' , function(event){
 
 //vet inte om jag behöver lägga till fler eventlisteners för mus 
 
-//detta är alla sträck och linjer i min canvas
-function sträck() {
-    //mittenlinje
-context.beginPath();
-context.moveTo(350,0);
-context.lineTo(350,1600);
-context.closePath();
-context.stroke();
-
-
-//översta sträck
-context.beginPath();
-context.moveTo(0,300);
-context.lineTo(800,300);
-context.closePath();
-context.stroke();
-
-//linjer för box till vänster
-context.beginPath();
-context.moveTo(110,0);
-context.lineTo(110,300);
-context.closePath();
-context.stroke();
-
-context.beginPath();
-context.moveTo(230,0);
-context.lineTo(230,300);
-context.closePath();
-context.stroke();
-
-
-//mitten sträck
-context.beginPath();
-context.moveTo(0,700);
-context.lineTo(800,700);
-context.closePath();
-context.stroke();
-
-//understa sträck
-context.beginPath();
-context.moveTo(0,1150);
-context.lineTo(800,1150);
-context.closePath();
-context.stroke();
-
-//linje till vänster
-context.beginPath();
-context.moveTo(50,300);
-context.lineTo(50,1600);
-context.closePath();
-context.stroke();
-
-}
-sträck()
-
+/*
 function drawImage() {
     const image = new Image();
     image.src = 'trooper.png';
@@ -108,7 +54,63 @@ function drawImage() {
 }
 
 drawImage()
+*/
 
+
+//detta är alla sträck och linjer i min canvas
+function sträck() {
+//mittenlinje
+context.beginPath();
+context.moveTo(850,0);
+context.lineTo(850,1600);
+context.closePath();
+context.stroke();
+
+
+//översta sträck
+context.beginPath();
+context.moveTo(0,200);
+context.lineTo(1700,200);
+context.closePath();
+context.stroke();
+
+//linjer för box till vänster
+context.beginPath();
+context.moveTo(266,0);
+context.lineTo(266,200);
+context.closePath();
+context.stroke();
+
+context.beginPath();
+context.moveTo(550,0);
+context.lineTo(550,200);
+context.closePath();
+context.stroke();
+
+
+//mitten sträck
+context.beginPath();
+context.moveTo(0,540);
+context.lineTo(1700,540);
+context.closePath();
+context.stroke();
+
+//understa sträck
+context.beginPath();
+context.moveTo(0,370);
+context.lineTo(1700,370);
+context.closePath();
+context.stroke();
+
+//linje till vänster
+context.beginPath();
+context.moveTo(100,200);
+context.lineTo(100,700);
+context.closePath();
+context.stroke();
+
+}
+sträck()
 
 //karaktärer
 
