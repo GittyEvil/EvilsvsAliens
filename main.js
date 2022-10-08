@@ -41,20 +41,38 @@ canvas.addEventListener('mousedown' , function(event){
     console.log(Mouse.x, Mouse.y)
 });
 
-//vet inte om jag behöver lägga till fler eventlisteners för mus 
+//behöver fixa en funktion för när man drar objekt och när musen rör på sig.
 
-/*
+//förta karaktären
 function drawImage() {
     const image = new Image();
-    image.src = 'trooper.png';
+    image.src = 'characters/trooper.png';
     image.onload = () => {
-        context.drawImage(image, 0, 0,200,200)
+        context.drawImage(image, 20, 0,200,200)
     }
-
+    
 }
-
 drawImage()
-*/
+
+//andra karaktären
+function drawImage2(){
+    const Image2 = new Image();
+    Image2.src = 'characters/sniper.png';
+    Image2.onload = () => {
+        context.drawImage(Image2, 290,0,200,200)
+    }
+}
+drawImage2()
+
+//tredje karaktären
+function drawImage3(){
+    const Image3 = new Image();
+    Image3.src = 'characters/doubleTrouble.png';
+    Image3.onload = () => {
+        context.drawImage(Image3, 590,0,200,200)
+    }
+}
+drawImage3()
 
 
 //detta är alla sträck och linjer i min canvas
