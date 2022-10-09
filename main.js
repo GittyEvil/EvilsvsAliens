@@ -42,6 +42,7 @@ canvas.addEventListener('mousedown' , function(event){
 });
 
 //behöver fixa en funktion för när man drar objekt och när musen rör på sig.
+// och då kommer en spelare ut om man placerar rätt.
 
 //förta karaktären
 function drawImage() {
