@@ -44,18 +44,18 @@ canvas.addEventListener('mousedown' , function(event){
 //behöver fixa en funktion för när man drar objekt och när musen rör på sig.
 // och då kommer en spelare ut om man placerar rätt.
 
-//förta karaktären
+//förta karaktären(bild)
 function drawImage() {
     const image = new Image();
     image.src = 'characters/trooper.png';
     image.onload = () => {
-        context.drawImage(image, 20, 0,200,200)
+        context.drawImage(image, 20,0,200,200)
     }
     
 }
 drawImage()
 
-//andra karaktären
+//andra karaktären(bild)
 function drawImage2(){
     const Image2 = new Image();
     Image2.src = 'characters/sniper.png';
@@ -65,7 +65,7 @@ function drawImage2(){
 }
 drawImage2()
 
-//tredje karaktären
+//tredje karaktären(bild)
 function drawImage3(){
     const Image3 = new Image();
     Image3.src = 'characters/doubleTrouble.png';
@@ -132,6 +132,19 @@ context.stroke();
 sträck()
 
 //karaktärer
+const trooper = new Trooper({
+    position: {
+        x:0,
+        y:0
+    }
+,
+velocity: {
+    x:0,
+    y:0,
+}
+})
+
+
 
 
 //motståndare

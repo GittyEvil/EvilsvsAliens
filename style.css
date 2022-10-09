@@ -16,7 +16,7 @@ body {
     box-sizing: border-box;
 }
 
-/* canvas boxen */
+/* canvas boxen/spelplan */
 #canvas1 {
     background-color: lightgrey ;
     width: 1700px;
