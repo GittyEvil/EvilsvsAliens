@@ -132,10 +132,21 @@ context.stroke();
 sträck()
 
 //karaktärer
+
+//spelarens karaktär
 const trooper = new Trooper({
     position: {
-        x:0,
-        y:0
+        x:200,
+        y:300
+    }
+,
+
+})
+//motståndare
+const eye = new Eye({
+    position: {
+        x:1200,
+        y:300
     }
 ,
 velocity: {
@@ -145,12 +156,19 @@ velocity: {
 })
 
 
-
-
-//motståndare
-
-
 //skott som de goda karaktärerna kommer skjuta
 
+/*detta är en animations loop som kommer uppdatera sig själv
+den kallar på sig själv och gör en oändlig loop
+*/
 
-//animationer ?? ( vet ej än, temporär)
+
+
+//context.fillRect(0,0,canvas.width,canvas.height)
+function animate(){
+    window.requestAnimationFrame(animate)
+    trooper.update()
+    eye.update()
+    
+}
+animate()
