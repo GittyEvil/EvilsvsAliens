@@ -41,6 +41,8 @@ canvas.addEventListener('mousedown' , function(event){
     console.log(Mouse.x, Mouse.y)
 });
 
+//skapa eventlisterner för mouse up och move
+
 //behöver fixa en funktion för när man drar objekt och när musen rör på sig.
 // och då kommer en spelare ut om man placerar rätt.
 
@@ -158,11 +160,11 @@ velocity: {
 
 //skott som de goda karaktärerna kommer skjuta
 
+
+
 /*detta är en animations loop som kommer uppdatera sig själv
 den kallar på sig själv och gör en oändlig loop
 */
-
-
 
 //context.fillRect(0,0,canvas.width,canvas.height)
 function animate(){
