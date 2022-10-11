@@ -43,6 +43,14 @@ canvas.addEventListener('mousedown' , function(event){
 
 //skapa eventlisterner för mouse up och move
 
+canvas.addEventListener('mousemove', function(){
+
+});
+
+canvas.addEventListener('mouseup', function(){
+
+});
+
 //behöver fixa en funktion för när man drar objekt och när musen rör på sig.
 // och då kommer en spelare ut om man placerar rätt.
 
