@@ -23,6 +23,8 @@ class Trooper {
         this.width = 50
         this.height = 50
         this.health = 100
+        this.xCorrect=this.x
+        this.yCorrect=this.y
     }
     draw() {
         context.fillStyle = this.color
@@ -31,6 +33,18 @@ class Trooper {
     update() {
         this.draw()
     }
+    isClose() {
+        if(distance({x:this.x,y:this,y},
+            {x:this.xCorrect,y:this.yCorrect}) <this.width/3) {
+                return true;
+            }
+            return false;
+    }
+    snap() {
+        this.x=this.xCorrect
+        this.y=this.yCorrect
+    }
+
 }
 
 //klass för moståndare
