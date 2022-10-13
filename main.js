@@ -73,8 +73,8 @@ canvas.addEventListener('mousedown' , function(event){
         console.log('missa')
     }
     
-    if(Mouse.x < (currentx2 + imagewidth)&& Mouse.x >(currentx2 -imagewidth) && 
-       Mouse.y < (currenty2 + imageheight)&& Mouse.y >(currenty2 -imageheight)) {
+    if(Mouse.x < (currentx2 + imagewidth2)&& Mouse.x >(currentx2 -imagewidth2) && 
+       Mouse.y < (currenty2 + imageheight2)&& Mouse.y >(currenty2 -imageheight2)) {
         draggable = true;
         console.log('clickad')
     } else {
@@ -82,8 +82,8 @@ canvas.addEventListener('mousedown' , function(event){
         console.log('missa')
     }
     
-    if(Mouse.x < (currentx3 + imagewidth)&& Mouse.x >(currentx3 -imagewidth) && 
-       Mouse.y < (currenty3 + imageheight)&& Mouse.y >(currenty3 -imageheight)) {
+    if(Mouse.x < (currentx3 + imagewidth3)&& Mouse.x >(currentx3 -imagewidth3) && 
+       Mouse.y < (currenty3 + imageheight3)&& Mouse.y >(currenty3 -imageheight3)) {
         draggable = true;
         console.log('clickad')
     } else {
@@ -150,11 +150,13 @@ drawImage()
 //andra karaktären(bild)
 var currentx2 = 290;
 var currenty2= 0;
+var imagewidth2 = 200;
+var imageheight2= 200;
 function drawImage2(){
     const Image2 = new Image();
     Image2.src = 'characters/sniper.png';
     Image2.onload = () => {
-        context.drawImage(Image2, currentx2,currenty2,imagewidth,imageheight)
+        context.drawImage(Image2, currentx2,currenty2,imagewidth2,imageheight2)
     }
 }
 drawImage2()
@@ -162,11 +164,13 @@ drawImage2()
 //tredje karaktären(bild)
 var currentx3 = 590;
 var currenty3 = 0;
+var imagewidth3 = 200;
+var imageheight3= 200;
 function drawImage3(){
     const Image3 = new Image();
     Image3.src = 'characters/doubleTrouble.png';
     Image3.onload = () => {
-        context.drawImage(Image3, currentx3,currenty3,imagewidth,imagewidth)
+        context.drawImage(Image3, currentx3,currenty3,imagewidth3,imagewidth3)
     }
 }
 drawImage3()
