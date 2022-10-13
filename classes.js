@@ -33,17 +33,7 @@ class Trooper {
     update() {
         this.draw()
     }
-    isClose() {
-        if(distance({x:this.x,y:this,y},
-            {x:this.xCorrect,y:this.yCorrect}) <this.width/3) {
-                return true;
-            }
-            return false;
-    }
-    snap() {
-        this.x=this.xCorrect
-        this.y=this.yCorrect
-    }
+
 
 }
 

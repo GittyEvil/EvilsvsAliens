@@ -15,8 +15,6 @@ när gameframe i loop blir t.ex. = 100 kommer en ny zombie in.
 */
 let gameframe = 0;
 
-let chosen_character = null;
-let characters = [];
 
 /*detta är för att se till att vänstra hörnet i canvasen blir 0,0.
 annars kan det vara vilket nummer som helst och det kan bli jobbit för
@@ -65,14 +63,7 @@ canvas.addEventListener('mousedown' , function(event){
     Mouse.y = event.y - canvasPosition.top;
     console.log(Mouse.x, Mouse.y)
 
-    chosen_character=pressedpictures(event);
-    if(chosen_character!=null) {
-        chosen_character.offset={
-            x:event.x-chosen_character.x,
-            y:event.y-chosen_character.y
-        }
-    }
-
+    
 });
 
 //skapa eventlisterner för mouse up och move
@@ -80,26 +71,14 @@ canvas.addEventListener('mousedown' , function(event){
 
 //ifall du hittar en lösning på att röra ta bort allt inom mousemove,down och up samt ta bort pressedpictures
 canvas.addEventListener('mousemove', function(event){
-    if(chosen_character!=null) {
-        chosen_character.x=event.x-chosen_character.offset.x;
-        chosen_character.y=event.y-chosen_character.offset.y;
-    }
+   
 });
 
 canvas.addEventListener('mouseup', function(event){
-    if(chosen_character.isClose()){
-        chosen_character.snap();
-    }
-    chosen_character=null;
+    
 });
 
-function pressedpictures(location) {
-    for(let i=0; i < characters.length;i++) {
-        if(loc.x > trooper.x && loc.x < trooper.x+trooper.width && loc.y > trooper.y && loc.y < trooper.y + trooper.height) {
-            return characters[i];
-        }
-    }
-}
+
 
 //behöver fixa en funktion för när man drar objekt och när musen rör på sig.
 // och då kommer en spelare ut om man placerar rätt.
