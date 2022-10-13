@@ -73,6 +73,24 @@ canvas.addEventListener('mousedown' , function(event){
         console.log('missa')
     }
     
+    if(Mouse.x < (currentx2 + imagewidth)&& Mouse.x >(currentx2 -imagewidth) && 
+       Mouse.y < (currenty2 + imageheight)&& Mouse.y >(currenty2 -imageheight)) {
+        draggable = true;
+        console.log('clickad')
+    } else {
+        draggable = false;
+        console.log('missa')
+    }
+    
+    if(Mouse.x < (currentx3 + imagewidth)&& Mouse.x >(currentx3 -imagewidth) && 
+       Mouse.y < (currenty3 + imageheight)&& Mouse.y >(currenty3 -imageheight)) {
+        draggable = true;
+        console.log('clickad')
+    } else {
+        draggable = false;
+        console.log('missa')
+    }
+    
 });
 
 //skapa eventlisterner för mouse up och move
@@ -87,7 +105,18 @@ canvas.addEventListener('mousemove', function(event){
         currentx = Mouse.x
         currenty = Mouse.y
         drawImage()
-   }
+    }
+
+   if (draggable) {
+        currentx2 = Mouse.x
+        currenty2 = Mouse.y
+        drawImage2()
+    }
+    if (draggable) {
+        currentx3 = Mouse.x
+        currenty3 = Mouse.y
+        drawImage3()
+    }
 });
 
 canvas.addEventListener('mouseup', function(event){
