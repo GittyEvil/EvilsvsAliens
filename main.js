@@ -32,6 +32,7 @@ const Mouse = {
     
 }
 
+
 //karaktärer
 
 //spelarens karaktär
@@ -56,13 +57,21 @@ velocity: {
 }
 })
 
-
+let draggable = false;
 //kollar vart musen trycks ner inom canvasen
 canvas.addEventListener('mousedown' , function(event){
     Mouse.x = event.x - canvasPosition.left;
     Mouse.y = event.y - canvasPosition.top;
     console.log(Mouse.x, Mouse.y)
 
+    if(Mouse.x < (currentx + imagewidth)&& Mouse.x >(currentx -imagewidth) && 
+       Mouse.y < (currenty + imageheight)&& Mouse.y >(currenty -imageheight)) {
+        draggable = true;
+        console.log('clickad')
+    } else {
+        draggable = false;
+        console.log('missa')
+    }
     
 });
 
@@ -71,11 +80,22 @@ canvas.addEventListener('mousedown' , function(event){
 
 //ifall du hittar en lösning på att röra ta bort allt inom mousemove,down och up samt ta bort pressedpictures
 canvas.addEventListener('mousemove', function(event){
-   
+    Mouse.x = event.x - canvasPosition.left;
+    Mouse.y = event.y - canvasPosition.top;
+    
+   if (draggable) {
+        currentx = Mouse.x
+        currenty = Mouse.y
+        drawImage()
+   }
 });
 
 canvas.addEventListener('mouseup', function(event){
-    
+    draggable = false;
+});
+
+canvas.addEventListener('mouseout', function(event){
+    draggable = false;
 });
 
 
@@ -84,32 +104,40 @@ canvas.addEventListener('mouseup', function(event){
 // och då kommer en spelare ut om man placerar rätt.
 
 //förta karaktären(bild)
+var currentx = 20;
+var currenty = 0;
+var imagewidth = 200;
+var imageheight= 200;
 function drawImage() {
     const image = new Image();
     image.src = 'characters/trooper.png';
     image.onload = () => {
-        context.drawImage(image, 20,0,200,200)
+        context.drawImage(image, currentx,currenty,imagewidth,imageheight)
     }
     
 }
 drawImage()
 
 //andra karaktären(bild)
+var currentx2 = 290;
+var currenty2= 0;
 function drawImage2(){
     const Image2 = new Image();
     Image2.src = 'characters/sniper.png';
     Image2.onload = () => {
-        context.drawImage(Image2, 290,0,200,200)
+        context.drawImage(Image2, currentx2,currenty2,imagewidth,imageheight)
     }
 }
 drawImage2()
 
 //tredje karaktären(bild)
+var currentx3 = 590;
+var currenty3 = 0;
 function drawImage3(){
     const Image3 = new Image();
     Image3.src = 'characters/doubleTrouble.png';
     Image3.onload = () => {
-        context.drawImage(Image3, 590,0,200,200)
+        context.drawImage(Image3, currentx3,currenty3,imagewidth,imagewidth)
     }
 }
 drawImage3()
@@ -179,7 +207,7 @@ sträck()
 den kallar på sig själv och gör en oändlig loop
 */
 
-//context.fillRect(0,0,canvas.width,canvas.height)
+//
 function animate(){
     window.requestAnimationFrame(animate)
     trooper.update()
