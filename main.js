@@ -130,6 +130,7 @@ canvas.addEventListener('mousemove', function(event){
         currentx = Mouse.x
         currenty = Mouse.y
         drawImage()
+        context.clearRect(100,100,canvas.width,canvas.height)
     }
     /*
    if (draggable) {
@@ -173,7 +174,8 @@ den kallar på sig själv och gör en oändlig loop
 */
 
 function animate(){
-    context.clearRect(200,200,canvas.width,canvas.height)
+    //context.clearRect(200,200,canvas.width,canvas.height)
+    drawImage()
     sträck()
     fieldbars()
     trooper.update()
