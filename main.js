@@ -7,8 +7,30 @@ const context = canvas.getContext('2d');
 canvas.width = 1700;
 canvas.height = 700;
 
+
+//spelarens karaktärer
+const characters = [];
+
 //poängsystememt
 let score = 0;
+
+
+//variabler för karaktärsbilder
+var currentx = 20;
+var currenty = 0;
+var imagewidth = 200;
+var imageheight= 200;
+
+var currentx2 = 290;
+var currenty2= 0;
+var imagewidth2 = 200;
+var imageheight2= 200;
+
+var currentx3 = 590;
+var currenty3 = 0;
+var imagewidth3 = 200;
+var imageheight3= 200;
+
 
 /*gameframe kommer användas för att uppdatera när zombies kan spawna in
 när gameframe i loop blir t.ex. = 100 kommer en ny zombie in.
@@ -51,6 +73,7 @@ const eye = new Eye({
         y:300
     }
 ,
+
 velocity: {
     x:0,
     y:0,
@@ -72,6 +95,7 @@ canvas.addEventListener('mousedown' , function(event){
         draggable = false;
         console.log('missa')
     }
+
     /*
     if(Mouse.x < (currentx2 + imagewidth2)&& Mouse.x >(currentx2 -imagewidth2) && 
        Mouse.y < (currenty2 + imageheight2)&& Mouse.y >(currenty2 -imageheight2)) {
@@ -93,7 +117,8 @@ canvas.addEventListener('mousedown' , function(event){
     */
 });
 
-//skapa eventlisterner för mouse up och move
+
+
 
 
 //ifall du hittar en lösning på att röra ta bort allt inom mousemove,down och up samt ta bort pressedpictures
@@ -129,124 +154,31 @@ canvas.addEventListener('mouseout', function(event){
     draggable = false;
 });
 
-
-
-//behöver fixa en funktion för när man drar objekt och när musen rör på sig.
-// och då kommer en spelare ut om man placerar rätt.
-
-//förta karaktären(bild)
-var currentx = 20;
-var currenty = 0;
-var imagewidth = 200;
-var imageheight= 200;
-function drawImage() {
-    const image = new Image();
-    image.src = 'characters/trooper.png';
-    image.onload = () => {
-        context.drawImage(image, currentx,currenty,imagewidth,imageheight)
-    }
-    
-}
+//bilderna uppe i vänstra hörn av spel
 drawImage()
-
-//andra karaktären(bild)
-var currentx2 = 290;
-var currenty2= 0;
-var imagewidth2 = 200;
-var imageheight2= 200;
-function drawImage2(){
-    const Image2 = new Image();
-    Image2.src = 'characters/sniper.png';
-    Image2.onload = () => {
-        context.drawImage(Image2, currentx2,currenty2,imagewidth2,imageheight2)
-    }
-}
 drawImage2()
-
-//tredje karaktären(bild)
-var currentx3 = 590;
-var currenty3 = 0;
-var imagewidth3 = 200;
-var imageheight3= 200;
-function drawImage3(){
-    const Image3 = new Image();
-    Image3.src = 'characters/doubleTrouble.png';
-    Image3.onload = () => {
-        context.drawImage(Image3, currentx3,currenty3,imagewidth3,imagewidth3)
-    }
-}
 drawImage3()
 
-
-//detta är alla sträck och linjer i min canvas
-function sträck() {
-//mittenlinje
-context.beginPath();
-context.moveTo(850,0);
-context.lineTo(850,1600);
-context.closePath();
-context.stroke();
-
-
-//översta sträck
-context.beginPath();
-context.moveTo(0,200);
-context.lineTo(1700,200);
-context.closePath();
-context.stroke();
-
-//linjer för box till vänster
-context.beginPath();
-context.moveTo(266,0);
-context.lineTo(266,200);
-context.closePath();
-context.stroke();
-
-context.beginPath();
-context.moveTo(550,0);
-context.lineTo(550,200);
-context.closePath();
-context.stroke();
-
-
-//mitten sträck
-context.beginPath();
-context.moveTo(0,540);
-context.lineTo(1700,540);
-context.closePath();
-context.stroke();
-
-//understa sträck
-context.beginPath();
-context.moveTo(0,370);
-context.lineTo(1700,370);
-context.closePath();
-context.stroke();
-
-//linje till vänster
-context.beginPath();
-context.moveTo(100,200);
-context.lineTo(100,700);
-context.closePath();
-context.stroke();
-
-}
+//alla sträck i canvasen
 sträck()
 
+//detta är "spelplanen" så att säga där karaktärer kommer gå etc
+fieldbars()
 
 //skott som de goda karaktärerna kommer skjuta
-
 
 
 /*detta är en animations loop som kommer uppdatera sig själv
 den kallar på sig själv och gör en oändlig loop
 */
 
-//
 function animate(){
-    window.requestAnimationFrame(animate)
+    context.clearRect(200,200,canvas.width,canvas.height)
+    sträck()
+    fieldbars()
     trooper.update()
     eye.update()
     
+    window.requestAnimationFrame(animate)
 }
 animate()

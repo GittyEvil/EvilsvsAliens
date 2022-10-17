@@ -17,14 +17,15 @@ class Sprite {
 //kommer skapa 6 st olika av denna för alla olika karaktärer
 class Trooper {
     constructor({position,velocity},color ='grey') {
+        //this.x = x
+        //this.y = y
         this.position = position
         this.velocity = velocity
         this.color = color
         this.width = 50
         this.height = 50
         this.health = 100
-        this.xCorrect=this.x
-        this.yCorrect=this.y
+        
     }
     draw() {
         context.fillStyle = this.color
@@ -40,6 +41,8 @@ class Trooper {
 //klass för moståndare
 class Eye {
     constructor({position,velocity},color ='red') {
+        //this.x = x
+        //this.y = y
         this.position = position
         this.velocity = velocity
         this.color = color
