@@ -66,6 +66,7 @@ const trooper = new Trooper({
 ,
 
 })
+
 //motståndare
 const eye = new Eye({
     position: {
@@ -130,9 +131,9 @@ canvas.addEventListener('mousemove', function(event){
         currentx = Mouse.x
         currenty = Mouse.y
         drawImage()
-        context.clearRect(100,100,canvas.width,canvas.height)
+        context.clearRect(0,0,canvas.width,canvas.height)
     }
-    /*
+    /*  
    if (draggable) {
         currentx2 = Mouse.x
         currenty2 = Mouse.y
@@ -147,8 +148,15 @@ canvas.addEventListener('mousemove', function(event){
     
 });
 
-canvas.addEventListener('mouseup', function(event){
+canvas.addEventListener('mouseup', function(){
     draggable = false;
+    
+    if(!draggable) {
+        console.log('pushad')
+        characters.push(new Trooper(400,600))
+        console.log(characters)  
+    }
+    
 });
 
 canvas.addEventListener('mouseout', function(event){
@@ -163,7 +171,7 @@ drawImage3()
 //alla sträck i canvasen
 sträck()
 
-//detta är "spelplanen" så att säga där karaktärer kommer gå etc
+//detta är "spelplanen" där karaktärer kommer gå etc
 fieldbars()
 
 //skott som de goda karaktärerna kommer skjuta
@@ -175,12 +183,13 @@ den kallar på sig själv och gör en oändlig loop
 
 function animate(){
     //context.clearRect(200,200,canvas.width,canvas.height)
-    drawImage()
     sträck()
     fieldbars()
     trooper.update()
     eye.update()
-    
+    drawImage()
+    drawImage2()
+    drawImage3()
     window.requestAnimationFrame(animate)
 }
 animate()
