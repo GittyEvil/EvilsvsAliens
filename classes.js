@@ -16,11 +16,11 @@ class Sprite {
 //själva karaktären Trooper, här kommer jag även ta ut bilden(som jag gjort) men det är senare
 //kommer skapa 6 st olika av denna för alla olika karaktärer
 class Trooper {
-    constructor({position,velocity},color ='grey') {
-        //this.x = x
-        //this.y = y
-        this.position = position
-        this.velocity = velocity
+    constructor({x,y},color ='grey') {
+        this.x = x
+        this.y = y
+        //this.position = position
+        //this.velocity = velocity
         this.color = color
         this.width = 50
         this.height = 50
@@ -29,7 +29,7 @@ class Trooper {
     }
     draw() {
         context.fillStyle = this.color
-        context.fillRect(this.position.x,this.position.y,this.width,this.height)
+        context.fillRect(this.x,this.y,this.width,this.height)
     }
     update() {
         this.draw()
@@ -40,10 +40,10 @@ class Trooper {
 
 //klass för moståndare
 class Eye {
-    constructor({position,velocity},color ='red') {
-        //this.x = x
-        //this.y = y
-        this.position = position
+    constructor({x,y,position,velocity},color ='red') {
+        this.x = x
+        this.y = y
+        //this.position = position
         this.velocity = velocity
         this.color = color
         this.width = 50
@@ -52,7 +52,7 @@ class Eye {
     }
     draw() {
         context.fillStyle = this.color
-        context.fillRect(this.position.x,this.position.y,this.width,this.height)
+        context.fillRect(this.x,this.y,this.width,this.height)
     }
     update() {
         this.draw()

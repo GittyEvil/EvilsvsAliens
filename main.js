@@ -59,22 +59,24 @@ const Mouse = {
 
 //spelarens karaktär
 const trooper = new Trooper({
-    position: {
-        x:200,
-        y:300
-    }
+    x:200,
+    y:300
+    
 ,
 
 })
 
 //motståndare
 const eye = new Eye({
+    x:1200,
+    y:300
+    /*
     position: {
         x:1200,
         y:300
     }
+    */
 ,
-
 velocity: {
     x:0,
     y:0,
@@ -87,7 +89,7 @@ canvas.addEventListener('mousedown' , function(event){
     Mouse.x = event.x - canvasPosition.left;
     Mouse.y = event.y - canvasPosition.top;
     console.log(Mouse.x, Mouse.y)
-
+    //kollar om musen är på bilden(i dess "hitbox")
     if(Mouse.x < (currentx + imagewidth)&& Mouse.x >(currentx -imagewidth) && 
        Mouse.y < (currenty + imageheight)&& Mouse.y >(currenty -imageheight)) {
         draggable = true;
@@ -119,10 +121,28 @@ canvas.addEventListener('mousedown' , function(event){
 });
 
 
+canvas.addEventListener('click',function() {
+    //här ska det testas saker
+
+    //behöver skapa ett sätt som kollar koordinater för spelplanen
+    //som sedan placerar ut en karaktär på musens/spelplanens koordinater
+    const fieldX = Mouse.x
+    const fieldY = Mouse.y
+
+    let kostnad = 500;
+    let trooperKostnad = 100;
+    if (kostnad >= trooperKostnad) {
+        characters.push(new Trooper(fieldX,fieldY))
+        kostnad -= trooperKostnad;
+        console.log(characters)
+    } else if (kostnad <=0) {
+        console.log('inte råd')
+    }
+    
+    
+});
 
 
-
-//ifall du hittar en lösning på att röra ta bort allt inom mousemove,down och up samt ta bort pressedpictures
 canvas.addEventListener('mousemove', function(event){
     Mouse.x = event.x - canvasPosition.left;
     Mouse.y = event.y - canvasPosition.top;
@@ -150,18 +170,26 @@ canvas.addEventListener('mousemove', function(event){
 
 canvas.addEventListener('mouseup', function(){
     draggable = false;
-    
+    /*
     if(!draggable) {
         console.log('pushad')
         characters.push(new Trooper(400,600))
         console.log(characters)  
     }
-    
+    */
 });
 
-canvas.addEventListener('mouseout', function(event){
+canvas.addEventListener('mouseout', function(){
     draggable = false;
 });
+
+
+//behöver skapa en funktion som hanterar alla karaktärer så att de målas ut i rätt mängd
+function handlecharacters() {
+    for(let i = 0; i < characters.length; i++) {
+        characters[i].update()
+    }
+}
 
 //bilderna uppe i vänstra hörn av spel
 drawImage()
@@ -185,6 +213,7 @@ function animate(){
     //context.clearRect(200,200,canvas.width,canvas.height)
     sträck()
     fieldbars()
+    handlecharacters()
     trooper.update()
     eye.update()
     drawImage()
