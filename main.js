@@ -1,3 +1,4 @@
+
 //kopplar ihop js filen med min canvas
 const canvas = document.getElementById('canvas1');
 //get context(2d) ger metoder och andra kommandon för 2d målning(drawing)
@@ -7,6 +8,8 @@ const context = canvas.getContext('2d');
 canvas.width = 1700;
 canvas.height = 700;
 
+//för mus event listeners
+let draggable = false;
 
 //spelarens karaktärer
 const characters = [];
@@ -57,33 +60,7 @@ const Mouse = {
 
 //karaktärer
 
-//spelarens karaktär
-const trooper = new Trooper({
-    x:200,
-    y:300
-    
-,
 
-})
-
-//motståndare
-const eye = new Eye({
-    x:1200,
-    y:300
-    /*
-    position: {
-        x:1200,
-        y:300
-    }
-    */
-,
-velocity: {
-    x:0,
-    y:0,
-}
-})
-
-let draggable = false;
 //kollar vart musen trycks ner inom canvasen
 canvas.addEventListener('mousedown' , function(event){
     Mouse.x = event.x - canvasPosition.left;
@@ -121,9 +98,9 @@ canvas.addEventListener('mousedown' , function(event){
 });
 
 
-canvas.addEventListener('click',function() {
-    //här ska det testas saker
-
+canvas.addEventListener('click',function(event) {
+    Mouse.x = event.x - canvasPosition.left;
+    Mouse.y = event.y - canvasPosition.top;
     //behöver skapa ett sätt som kollar koordinater för spelplanen
     //som sedan placerar ut en karaktär på musens/spelplanens koordinater
     const fieldX = Mouse.x
@@ -132,10 +109,11 @@ canvas.addEventListener('click',function() {
     let kostnad = 500;
     let trooperKostnad = 100;
     if (kostnad >= trooperKostnad) {
+        click = true;
         characters.push(new Trooper(fieldX,fieldY))
         kostnad -= trooperKostnad;
         console.log(characters)
-    } else if (kostnad <=0) {
+    } else if (kostnad <= 0) {
         console.log('inte råd')
     }
     
@@ -183,7 +161,6 @@ canvas.addEventListener('mouseout', function(){
     draggable = false;
 });
 
-
 //behöver skapa en funktion som hanterar alla karaktärer så att de målas ut i rätt mängd
 function handlecharacters() {
     for(let i = 0; i < characters.length; i++) {
@@ -214,8 +191,6 @@ function animate(){
     sträck()
     fieldbars()
     handlecharacters()
-    trooper.update()
-    eye.update()
     drawImage()
     drawImage2()
     drawImage3()
