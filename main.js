@@ -8,8 +8,6 @@ const context = canvas.getContext('2d');
 canvas.width = 1700;
 canvas.height = 700;
 
-//för mus event listeners
-let draggable = false;
 
 //för spelplanen
 const fieldSize = 100;
@@ -24,25 +22,6 @@ let resources = 300;
 //poängsystememt
 let score = 0;
 
-
-//variabler för karaktärsbilder
-/*
-var currentx = 20;
-var currenty = 0;
-var imagewidth = 200;
-var imageheight= 200;
-
-var currentx2 = 290;
-var currenty2= 0;
-var imagewidth2 = 200;
-var imageheight2= 200;
-
-var currentx3 = 590;
-var currenty3 = 0;
-var imagewidth3 = 200;
-var imageheight3= 200;
-
-*/
 
 //den blåa toppbaren
 const bar = {
@@ -71,68 +50,17 @@ const mouse = {
     height:0.1,
 }
 
-//karaktärer
 
 
 //kollar vart musen trycks ner inom canvasen
-canvas.addEventListener('mousedown' , function(event){
-    /*
-    Mouse.x = event.x - canvasPosition.left;
-    Mouse.y = event.y - canvasPosition.top;
-    
-    console.log(Mouse.x, Mouse.y)
-    //kollar om musen är på bilden(i dess "hitbox")
-    if(Mouse.x < (currentx + imagewidth)&& Mouse.x >(currentx -imagewidth) && 
-       Mouse.y < (currenty + imageheight)&& Mouse.y >(currenty -imageheight)) {
-        draggable = true;
-        console.log('clickad')
-    } else {
-        draggable = false;
-        console.log('missa')
-    }
 
-    
-    if(Mouse.x < (currentx2 + imagewidth2)&& Mouse.x >(currentx2 -imagewidth2) && 
-       Mouse.y < (currenty2 + imageheight2)&& Mouse.y >(currenty2 -imageheight2)) {
-        draggable = true;
-        console.log('clickad')
-    } else {
-        draggable = false;
-        console.log('missa')
-    }
-    
-    if(Mouse.x < (currentx3 + imagewidth3)&& Mouse.x >(currentx3 -imagewidth3) && 
-       Mouse.y < (currenty3 + imageheight3)&& Mouse.y >(currenty3 -imageheight3)) {
-        draggable = true;
-        console.log('clickad')
-    } else {
-        draggable = false;
-        console.log('missa')
-    }
-    */
-});
 canvas.addEventListener('mousemove', function(event){
     mouse.x = event.x - canvasPosition.left;
     mouse.y = event.y - canvasPosition.top;
-    /*
-   if (draggable) {
-        currentx = Mouse.x
-        currenty = Mouse.y
-        drawImage()
-        context.clearRect(0,0,canvas.width,canvas.height)
-    }
-      
-   if (draggable) {
-        currentx2 = Mouse.x
-        currenty2 = Mouse.y
-        drawImage2()
-    }
-    if (draggable) {
-        currentx3 = Mouse.x
-        currenty3 = Mouse.y
-        drawImage3()
-    }
-    */
+    
+});
+
+canvas.addEventListener('mousedown' , function(event){
     
 });
 
@@ -153,8 +81,8 @@ class Field {
         if(mouse.x && mouse.y && collision(this, mouse)) {
             context.strokeStyle = 'black';
             context.strokeRect(this.x,this.y,this.width,this.height);
-
         }
+        
     }
 }
 
@@ -226,13 +154,7 @@ function handleCharacters() {
 
 canvas.addEventListener('mouseup', function(){
     draggable = false;
-    /*
-    if(!draggable) {
-        console.log('pushad')
-        characters.push(new Trooper(400,600))
-        console.log(characters)  
-    }
-    */
+    
 });
 
 canvas.addEventListener('mouseout', function(){
@@ -241,7 +163,6 @@ canvas.addEventListener('mouseout', function(){
 
 
 //bilderna uppe i vänstra hörn av spel
-
 const character1 = {
     x:10,
     y:10,
@@ -272,25 +193,11 @@ function chooseCharacter() {
     context.drawImage(char3,0,0,194,194,160,5,194/2,194/2);
 }
 
-/*
-//alla sträck i canvasen
-sträck()
-
-//detta är "spelplanen" där karaktärer kommer gå etc
-fieldbars()
-*/
-//skott som de goda karaktärerna kommer skjuta
-
-
-/*detta är en animations loop som kommer uppdatera sig själv
-den kallar på sig själv och gör en oändlig loop
-*/
 
 function animate(){
     context.clearRect(0,0,canvas.width,canvas.height)
     context.fillStyle = ' blue';
     context.fillRect(0,0,bar.width,bar.height);
-    chooseCharacter()
     handleCharacters()
     chooseCharacter()
     requestAnimationFrame(animate);
