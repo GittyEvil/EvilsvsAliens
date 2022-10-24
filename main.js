@@ -173,6 +173,16 @@ function handlefield() {
     }
 }
 
+const char1 = new Image();
+char1.src = 'characters/trooper.png';
+
+const char2 = new Image();
+char2.src = 'characters/sniper.png';
+
+const char3 = new Image();
+char3.src = 'characters/doubleTrouble.png';
+
+
 class Trooper {
     constructor(x,y) {
         this.x=x,
@@ -231,11 +241,38 @@ canvas.addEventListener('mouseout', function(){
 
 
 //bilderna uppe i vänstra hörn av spel
-/*
-drawImage()
-drawImage2()
-drawImage3()
 
+const character1 = {
+    x:10,
+    y:10,
+    width:70,
+    height:85,
+}
+const character2 = {
+    x:90,
+    y:10,
+    width:70,
+    height:85,
+}
+const character3 = {
+    x:180,
+    y:10,
+    width:70,
+    height:85,
+}
+
+//detta ska bli ikonerna där man sedan kommer välja vilken karaktär man vill placera ut.
+function chooseCharacter() {
+    context.lineWidth = 1;
+    context.fillRect(character1.x,character1.y,character1.width,character1.height)
+    context.drawImage(char1,0,0,194,194,0,5,194/2,194/2);
+    context.fillRect(character2.x,character2.y,character2.width,character2.height)
+    context.drawImage(char2,0,0,194,194,80,5,194/2,194/2);
+    context.fillRect(character3.x,character3.y,character3.width,character3.height)
+    context.drawImage(char3,0,0,194,194,160,5,194/2,194/2);
+}
+
+/*
 //alla sträck i canvasen
 sträck()
 
@@ -250,12 +287,12 @@ den kallar på sig själv och gör en oändlig loop
 */
 
 function animate(){
-    //context.clearRect(200,200,canvas.width,canvas.height)
     context.clearRect(0,0,canvas.width,canvas.height)
     context.fillStyle = ' blue';
     context.fillRect(0,0,bar.width,bar.height);
-    handlefield()
+    chooseCharacter()
     handleCharacters()
+    chooseCharacter()
     requestAnimationFrame(animate);
 }
 animate()
