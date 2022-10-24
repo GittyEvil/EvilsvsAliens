@@ -1,4 +1,4 @@
-
+/*
 //förta karaktären(bild)
 function drawImage() {
     const image = new Image();
@@ -98,3 +98,5 @@ function sträck() {
     context.stroke();
     
     }
+
+*/

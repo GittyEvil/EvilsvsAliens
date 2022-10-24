@@ -1,4 +1,5 @@
 //detta är för sprite, och endast för att få positionen av sprites(gubbar)
+/*
 class Sprite {
     constructor({position}) {
         this.position = position
@@ -59,3 +60,5 @@ class Eye {
         //this.position.x -=1;
     }
 }
+
+*/
