@@ -196,7 +196,6 @@ function animate(){
     context.fillRect(0,0,bar.width,bar.height);
     handlefield()
     handleCharacters()
-    handlefield()
     chooseCharacter()
     requestAnimationFrame(animate);
 }
