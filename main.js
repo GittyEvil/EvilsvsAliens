@@ -141,6 +141,7 @@ canvas.addEventListener('click',function() {
     }
 
 });
+
 //hanterar karaktärer
 function handleCharacters() {
     for(let i =0; i < characters.length; i++) {
@@ -201,7 +202,7 @@ function animate(){
 }
 animate()
 
-//detta är en collision detecor, som enkelt kollar om två objekt krockar
+//detta är en collision detector, som enkelt kollar om två objekt krockar
 function collision(first, second) {
     if(     !(first.x > second.x + second.width || 
         first.x +first.width < second.x ||
