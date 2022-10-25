@@ -60,12 +60,8 @@ canvas.addEventListener('mousemove', function(event){
     
 });
 
-canvas.addEventListener('mousedown' , function(event){
-    
-});
-
-canvas.addEventListener('mouseleave', function() {
-    mouse.x= undefined;
+canvas.addEventListener('mouseleave',function() {
+    mouse.x = undefined;
     mouse.y = undefined;
 })
 
@@ -198,6 +194,7 @@ function animate(){
     context.clearRect(0,0,canvas.width,canvas.height)
     context.fillStyle = ' blue';
     context.fillRect(0,0,bar.width,bar.height);
+    handlefield()
     handleCharacters()
     handlefield()
     chooseCharacter()
