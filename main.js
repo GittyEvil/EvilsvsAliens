@@ -199,6 +199,7 @@ function animate(){
     context.fillStyle = ' blue';
     context.fillRect(0,0,bar.width,bar.height);
     handleCharacters()
+    handlefield()
     chooseCharacter()
     requestAnimationFrame(animate);
 }
