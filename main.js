@@ -224,20 +224,32 @@ const character3 = {
 //detta ska bli ikonerna där man sedan kommer välja vilken karaktär man vill placera ut.
 function chooseCharacter() {
     context.lineWidth = 1;
+    context.fillStyle = "black";
+    context.strokeStyle = "black";
     context.fillRect(character1.x,character1.y,character1.width,character1.height)
+    context.strokeRect(character1.x,character1.y,character1.width,character1.height)
     context.drawImage(char1,0,0,194,194,-10,5,194/2,194/2);
     context.fillRect(character2.x,character2.y,character2.width,character2.height)
+    context.strokeRect(character2.x,character2.y,character2.width,character2.height)
     context.drawImage(char2,0,0,194,194,70,5,194/2,194/2);
     context.fillRect(character3.x,character3.y,character3.width,character3.height)
+    context.strokeRect(character3.x,character3.y,character3.width,character3.height)
     context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
 }
 
 function selectedCharacter() {
-    if(collision(character1,mouse)) {
+    if(mouse.x && mouse.y && collision(character1,mouse)) {
+        context.strokeStyle ="gold";
+    }
+    if(collision(character2,mouse)) {
+        //byta border eller färg på något som ska indikera på att du valt karaktär
+    }
+    if(collision(character2,mouse)) {
         //byta border eller färg på något som ska indikera på att du valt karaktär
     }
 }
 
+selectedCharacter()
 //detta är en collision detector, som enkelt kollar om två objekt krockar
 function collision(first, second) {
     if(     !(first.x > second.x + second.width || 
