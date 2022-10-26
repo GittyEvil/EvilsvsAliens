@@ -249,7 +249,7 @@ function selectedCharacter() {
     }
 }
 
-selectedCharacter()
+
 //detta är en collision detector, som enkelt kollar om två objekt krockar
 function collision(first, second) {
     if(     !(first.x > second.x + second.width || 
@@ -267,6 +267,7 @@ function animate(){
     handleField()
     handleCharacters()
     chooseCharacter()
+    selectedCharacter()
     requestAnimationFrame(animate);
 }
 animate()
