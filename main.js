@@ -19,6 +19,9 @@ const characters = [];
 let characterCost = 100;
 let resources = 300;
 
+//motståndare
+const enemies = [];
+
 //poängsystememt
 let score = 0;
 
@@ -48,6 +51,7 @@ const mouse = {
     y:10,
     width:0.1,
     height:0.1,
+    clicked: false,
 }
 
 //bilderna för mina karaktärer
@@ -70,19 +74,23 @@ canvas.addEventListener('mousemove', function(event){
     
 });
 
-canvas.addEventListener('mouseleave',function() {
+canvas.addEventListener('mouseleave',function(){
     mouse.x = undefined;
     mouse.y = undefined;
 })
 
 canvas.addEventListener('mouseup', function(){
     draggable = false;
+    mouse.clicked=false;
     
 });
 
 canvas.addEventListener('mouseout', function(){
     draggable = false;
 });
+canvas.addEventListener('mousedown',function(){
+    mouse.clicked = true;
+})
 
 canvas.addEventListener('click',function() {
     const gridPositionX = mouse.x -(mouse.x % fieldSize)
@@ -238,14 +246,23 @@ function chooseCharacter() {
 }
 
 function selectedCharacter() {
-    if(mouse.x && mouse.y && collision(character1,mouse)) {
+    if(collision(character1,mouse) && mouse.clicked) {
         context.strokeStyle ="gold";
+        context.fillRect(character1.x,character1.y,character1.width,character1.height)
+        context.strokeRect(character1.x,character1.y,character1.width,character1.height)
+        context.drawImage(char1,0,0,194,194,-10,5,194/2,194/2);
     }
-    if(collision(character2,mouse)) {
-        //byta border eller färg på något som ska indikera på att du valt karaktär
+    if(collision(character2,mouse) && mouse.clicked) {
+        context.strokeStyle ="gold";
+        context.fillRect(character2.x,character2.y,character2.width,character2.height)
+        context.strokeRect(character2.x,character2.y,character2.width,character2.height)
+        context.drawImage(char2,0,0,194,194,70,5,194/2,194/2);
     }
-    if(collision(character2,mouse)) {
-        //byta border eller färg på något som ska indikera på att du valt karaktär
+    if(collision(character3,mouse) && mouse.clicked) {
+        context.strokeStyle ="gold";
+        context.fillRect(character3.x,character3.y,character3.width,character3.height)
+        context.strokeRect(character3.x,character3.y,character3.width,character3.height)
+        context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
     }
 }
 
