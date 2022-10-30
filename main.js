@@ -35,7 +35,7 @@ const bar = {
 /*gameframe kommer användas för att uppdatera när zombies kan spawna in
 när gameframe i loop blir t.ex. = 100 kommer en ny zombie in.
 */
-let gameframe = 0;
+let gameFrame = 0;
 
 
 /*detta är för att se till att vänstra hörnet i canvasen blir 0,0.
@@ -95,8 +95,13 @@ canvas.addEventListener('mousedown',function(){
 canvas.addEventListener('click',function() {
     const gridPositionX = mouse.x -(mouse.x % fieldSize)
     const gridPositionY = mouse.y -(mouse.y % fieldSize)
+    console.log(mouse.x)
+    console.log(mouse.y)
     //är musen innanför/närheten av ett block/ruta så placerar man ut en trooper karaktär, detta ska ändras så man kan ändra för de 3 olika karaktärerna
+
+    //detta hindrar spelaren från att placera ut karaktärer på blåa baren och första raden längst till vänster
     if(gridPositionX < fieldSize) return;
+    if(gridPositionY < fieldSize) return;
 
     if(resources >= characterCost && chosenCharacter=== 1) {
         characters.push(new Trooper(gridPositionX, gridPositionY))
@@ -147,7 +152,7 @@ function handleField() {
     }
 }
 
-//karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
+//klasser för karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
 class Trooper {
     constructor(x,y) {
         this.x=x,
@@ -181,7 +186,7 @@ class Sniper {
         this.timer = 0;
     }
     draw() {
-        context.fillStyle = 'red';
+        context.fillStyle = 'green';
         context.fillRect(this.x,this.y, this.width, this.height);
         context.fillStyle='gold';
         context.font = '20px Arial'
@@ -211,10 +216,88 @@ class DoubleTrouble {
     }
 }
 
-//hanterar karaktärer
+//hanterar (spelarens) karaktärer
 function handleCharacters() {
     for(let i =0; i < characters.length; i++) {
         characters[i].draw();
+    }
+}
+
+//klasser för enemies
+class Eye {
+    constructor(x,y) {
+        this.x=x,
+        this.y=y,
+        this.width = fieldSize,
+        this.height = fieldSize,
+        this.health = 100;
+
+    }
+    draw(){
+        context.fillStyle='red';
+        context.fillRect(this.x,this.y,this.width,this.health)
+        context.fillStyle='gold';
+        context.font = '20px Arial'
+        context.fillText(Math.floor(this.health),this.x, this.y);
+
+    }
+
+}
+
+class FlameEye {
+    constructor(x,y) {
+        this.x=x,
+        this.y=y,
+        this.width = fieldSize,
+        this.height = fieldSize,
+        this.health = 100;
+
+    }
+    draw(){
+        context.fillStyle='orange';
+        context.fillRect(this.x,this.y,this.width,this.health)
+        context.fillStyle='gold';
+        context.font = '20px Arial'
+        context.fillText(Math.floor(this.health),this.x, this.y);
+
+    }
+
+}
+
+class InfectedEye {
+    constructor(x,y) {
+        this.x=x,
+        this.y=y,
+        this.width = fieldSize,
+        this.height = fieldSize,
+        this.health = 100;
+
+    }
+    draw(){
+        context.fillStyle='purple';
+        context.fillRect(this.x,this.y,this.width,this.health)
+        context.fillStyle='gold';
+        context.font = '20px Arial'
+        context.fillText(Math.floor(this.health),this.x, this.y);
+
+    }
+
+}
+
+//behöver skapa något som spawnar ut motståndare.
+function spawnEnemies() {
+    gameFrame+=1;
+    if(gameFrame%100 === 0) {
+        //behöver kolla så att jag kan spawn ut karaktär mellan vissa värden så de inte alltid spawnas på t.ex. 1600,300
+        //enemies.push(new Eye(1600,400))
+        
+    }
+}
+
+//kommer hantera alla min motståndare
+function handleEnemeies() {
+    for(let i =0; i < enemies.length; i++) {
+        enemies[i].draw();
     }
 }
 
@@ -250,9 +333,12 @@ function chooseCharacter() {
     if(collision(character3,mouse) && mouse.clicked) {
         chosenCharacter = 3;
     }
+
+    //standarfärg för border runt blocken
     character1stroke = 'black'
     character2stroke = 'black'
     character3stroke = 'black'
+
     //här ändras border färgen för karaktär 1 till guld så det syns lätt
     if(chosenCharacter === 1) {
         character1stroke= 'gold'
@@ -285,7 +371,6 @@ function chooseCharacter() {
     context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
 }
 
-
 //detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
 function collision(first, second) {
     if(     !(first.x > second.x + second.width || 
@@ -295,13 +380,16 @@ function collision(first, second) {
             return true;
         }
 }
+
 //animations loop som loopas om och om igen, kommer köra och uppdatera saker hela tiden(gör att spelet funkar)
 function animate(){
     context.clearRect(0,0,canvas.width,canvas.height)
     context.fillStyle = ' blue';
     context.fillRect(0,0,bar.width,bar.height);
     handleField()
+    spawnEnemies()
     handleCharacters()
+    handleEnemeies()
     chooseCharacter()
     requestAnimationFrame(animate);
 }
