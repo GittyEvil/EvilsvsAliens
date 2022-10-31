@@ -95,8 +95,6 @@ canvas.addEventListener('mousedown',function(){
 canvas.addEventListener('click',function() {
     const gridPositionX = mouse.x -(mouse.x % fieldSize)
     const gridPositionY = mouse.y -(mouse.y % fieldSize)
-    console.log(mouse.x)
-    console.log(mouse.y)
     //är musen innanför/närheten av ett block/ruta så placerar man ut en trooper karaktär, detta ska ändras så man kan ändra för de 3 olika karaktärerna
 
     //detta hindrar spelaren från att placera ut karaktärer på blåa baren och första raden längst till vänster
@@ -225,13 +223,13 @@ function handleCharacters() {
 
 //klasser för enemies
 class Eye {
-    constructor(x,y) {
-        this.x=x,
-        this.y=y,
+    constructor(PositionY) {
+        this.x=canvas.width,
+        this.y=PositionY,
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100;
-
+        this.speed = 1;
     }
     draw(){
         context.fillStyle='red';
@@ -239,19 +237,20 @@ class Eye {
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
-
     }
-
+    update() {
+        this.x-=1;
+    }
 }
 
 class FlameEye {
-    constructor(x,y) {
-        this.x=x,
-        this.y=y,
+    constructor(PositionY) {
+        this.x=canvas.width,
+        this.y=PositionY,
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100;
-
+        this.speed = 1;
     }
     draw(){
         context.fillStyle='orange';
@@ -261,16 +260,19 @@ class FlameEye {
         context.fillText(Math.floor(this.health),this.x, this.y);
 
     }
-
+    update() {
+        this.x-=1;
+    }
 }
 
 class InfectedEye {
-    constructor(x,y) {
-        this.x=x,
-        this.y=y,
+    constructor(PositionY) {
+        this.x=canvas.width,
+        this.y=PositionY,
         this.width = fieldSize,
         this.height = fieldSize,
-        this.health = 100;
+        this.health = 100,
+        this.speed = 1;
 
     }
     draw(){
@@ -281,16 +283,24 @@ class InfectedEye {
         context.fillText(Math.floor(this.health),this.x, this.y);
 
     }
+    update() {
+        this.x-=1;
+    }
 
 }
 
 //behöver skapa något som spawnar ut motståndare.
 function spawnEnemies() {
     gameFrame+=1;
+    let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize;
     if(gameFrame%100 === 0) {
-        //behöver kolla så att jag kan spawn ut karaktär mellan vissa värden så de inte alltid spawnas på t.ex. 1600,300
-        //enemies.push(new Eye(1600,400))
-        
+        /*för att de inte ska placeras ut på samma rad så behövs math. random
+        sen gångra med 6 för 6 rader i canvas + 1 för att inte hamna i blåa baren
+        */
+        enemies.push(new Eye(PositionY))
+    }
+    if(gameFrame&1000 === 0) {
+        enemies.push(new FlameEye(PositionY))
     }
 }
 
@@ -298,6 +308,7 @@ function spawnEnemies() {
 function handleEnemeies() {
     for(let i =0; i < enemies.length; i++) {
         enemies[i].draw();
+        enemies[i].update();
     }
 }
 
