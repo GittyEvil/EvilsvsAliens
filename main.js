@@ -289,7 +289,7 @@ class InfectedEye {
 
 }
 
-//behöver skapa något som spawnar ut motståndare.
+//detta spawnar motståndare beroende på frames
 function spawnEnemies() {
     gameFrame+=1;
     let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize;
@@ -304,7 +304,7 @@ function spawnEnemies() {
     }
 }
 
-//kommer hantera alla min motståndare
+//hanterar alla min motståndare
 function handleEnemeies() {
     for(let i =0; i < enemies.length; i++) {
         enemies[i].draw();
@@ -334,7 +334,7 @@ const character3 = {
 
 //detta ska bli ikonerna där man sedan kommer välja vilken karaktär man vill placera ut.
 function chooseCharacter() {
-    //kollar om mus krockar med blocket för karaktär 1 och det stämmer så blir chosencharacter 1,visar att den är vald
+    //kollar om mus krockar med blocket för karaktär 1 och det stämmer så blir chosencharacter 1
     if(collision(character1,mouse) && mouse.clicked) {
         chosenCharacter = 1;
     }
@@ -384,12 +384,22 @@ function chooseCharacter() {
 
 //detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
 function collision(first, second) {
-    if(     !(first.x > second.x + second.width || 
+    if(!(first.x > second.x + second.width || 
         first.x +first.width < second.x ||
         first.y > second.y + second.height ||
         first.y + first.height < second.y )) {
             return true;
         }
+}
+
+//projectiles/skott
+function shoot() {
+    /*behöver kolla att shooting är true, skapa en cirkel som kommer vara skott
+     som rör sig mot motståndare från själva karaktären
+     när den krockar med motståndare så förlorar de liv(hp)
+     funderar på om man ska göra en egen klass för skott som kommer köras likadant som spelarens karaktärer
+    */
+
 }
 
 //animations loop som loopas om och om igen, kommer köra och uppdatera saker hela tiden(gör att spelet funkar)
