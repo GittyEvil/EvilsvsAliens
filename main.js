@@ -20,6 +20,9 @@ let characterCost = 100;
 let resources = 300;
 let chosenCharacter = 1;
 
+//karaktärernas skott
+let projectiles = []
+
 //motståndare
 const enemies = [];
 
@@ -150,6 +153,37 @@ function handleField() {
     }
 }
 
+//klass för skotten som karaktärerna kommer skjuta
+class Bullet {
+    constructor(x,y) {
+        this.x = x
+        this.y = y
+        this.width = 10
+        this.height = 10
+
+    }
+    draw() {
+    context.fillRect(this.x,this.y,this.width,this.height)
+    }
+    update() {
+        this.x -=1;
+    }
+}
+
+/*behöver kolla att shooting är true, skapa en cirkel som kommer vara skott
+     som rör sig mot motståndare från själva karaktären
+     när den krockar med motståndare så förlorar de liv(hp)
+     funderar på om man ska göra en egen klass för skott som kommer köras likadant som spelarens karaktärer
+    */
+
+//hanterar skotten, behöver ligga innan karaktärerna tror jag, är mer rimligt
+function handleBullets() {
+    for(let i = 0; i < projectiles.length; i++) {
+        projectiles[i].draw()
+        projectiles[i].update()
+    }
+}
+
 //klasser för karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
 class Trooper {
     constructor(x,y) {
@@ -159,7 +193,6 @@ class Trooper {
         this.height = fieldSize,
         this.health = 100,
         this.shooting= false,
-        this.projectiles = [],
         this.timer = 0;
     }
     draw() {
@@ -180,7 +213,6 @@ class Sniper {
         this.height = fieldSize,
         this.health = 100,
         this.shooting= false,
-        this.projectiles = [],
         this.timer = 0;
     }
     draw() {
@@ -201,7 +233,6 @@ class DoubleTrouble {
         this.height = fieldSize,
         this.health = 100,
         this.shooting= false,
-        this.projectiles = [],
         this.timer = 0;
     }
     draw() {
@@ -392,15 +423,6 @@ function collision(first, second) {
         }
 }
 
-//projectiles/skott
-function shoot() {
-    /*behöver kolla att shooting är true, skapa en cirkel som kommer vara skott
-     som rör sig mot motståndare från själva karaktären
-     när den krockar med motståndare så förlorar de liv(hp)
-     funderar på om man ska göra en egen klass för skott som kommer köras likadant som spelarens karaktärer
-    */
-
-}
 
 //animations loop som loopas om och om igen, kommer köra och uppdatera saker hela tiden(gör att spelet funkar)
 function animate(){
