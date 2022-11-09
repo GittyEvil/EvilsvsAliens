@@ -163,6 +163,7 @@ class Bullet {
 
     }
     draw() {
+    context.fillStyle ='black'
     context.fillRect(this.x,this.y,this.width,this.height)
     }
     update() {
@@ -203,6 +204,12 @@ class Trooper {
         context.fillText(Math.floor(this.health),this.x, this.y);
 
     }
+    update() {
+        this.timer++;
+        if(this.timer %100 === 0) {
+            projectiles.push(new Bullet(this.x,this.y))
+        }
+    }
 }
 
 class Sniper {
@@ -222,6 +229,12 @@ class Sniper {
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
 
+    }
+    update() {
+        this.timer++;
+        if(this.timer %100 == 0) {
+            projectiles.push(new Bullet(this.x,this.y))
+        }
     }
 }
 
@@ -243,12 +256,19 @@ class DoubleTrouble {
         context.fillText(Math.floor(this.health),this.x, this.y);
 
     }
+    update() {
+        this.timer++;
+        if(this.timer %100 == 0) {
+            projectiles.push(new Bullet(this.x,this.y))
+        }
+    }
 }
 
 //hanterar (spelarens) karaktärer
 function handleCharacters() {
     for(let i =0; i < characters.length; i++) {
         characters[i].draw();
+        characters[i].update();
     }
 }
 
@@ -433,6 +453,7 @@ function animate(){
     spawnEnemies()
     handleCharacters()
     handleEnemeies()
+    handleBullets()
     chooseCharacter()
     requestAnimationFrame(animate);
 }
