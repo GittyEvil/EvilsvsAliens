@@ -166,7 +166,7 @@ class Bullet {
     context.fillRect(this.x,this.y,this.width,this.height)
     }
     update() {
-        this.x -=1;
+        this.x +=1;
     }
 }
 
