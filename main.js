@@ -21,7 +21,7 @@ let resources = 300;
 let chosenCharacter = 1;
 
 //karaktärernas skott
-let projectiles = []
+const projectiles = []
 
 //motståndare
 const enemies = [];
@@ -167,22 +167,28 @@ class Bullet {
     context.fillRect(this.x,this.y,this.width,this.height)
     }
     update() {
-        this.x +=1;
+        this.x +=10;
     }
 }
 
-/*behöver kolla att shooting är true, skapa en cirkel som kommer vara skott
-     som rör sig mot motståndare från själva karaktären
-     när den krockar med motståndare så förlorar de liv(hp)
-     funderar på om man ska göra en egen klass för skott som kommer köras likadant som spelarens karaktärer
-    */
 
-//hanterar skotten, behöver ligga innan karaktärerna tror jag, är mer rimligt
+//hanterar skotten
 function handleBullets() {
     for(let i = 0; i < projectiles.length; i++) {
         projectiles[i].draw()
         projectiles[i].update()
+
+
+        for(let x=0; x < enemies.length;x++) {
+            if(/*projectiles[i] && enemies[x] &&*/ collision(projectiles[i],enemies[x])) {
+                enemies[x].health -=10;
+            }
+        }
     }
+
+
+
+    
 }
 
 //klasser för karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
@@ -206,8 +212,8 @@ class Trooper {
     }
     update() {
         this.timer++;
-        if(this.timer %100 === 0) {
-            projectiles.push(new Bullet(this.x,this.y))
+        if(this.timer %50 === 0) {
+            projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
 }
@@ -232,8 +238,8 @@ class Sniper {
     }
     update() {
         this.timer++;
-        if(this.timer %100 == 0) {
-            projectiles.push(new Bullet(this.x,this.y))
+        if(this.timer %50 == 0) {
+            projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
 }
@@ -258,8 +264,8 @@ class DoubleTrouble {
     }
     update() {
         this.timer++;
-        if(this.timer %100 == 0) {
-            projectiles.push(new Bullet(this.x,this.y))
+        if(this.timer %50 == 0) {
+            projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
 }
@@ -350,9 +356,7 @@ function spawnEnemies() {
         */
         enemies.push(new Eye(PositionY))
     }
-    if(gameFrame&1000 === 0) {
-        enemies.push(new FlameEye(PositionY))
-    }
+    
 }
 
 //hanterar alla min motståndare
@@ -360,6 +364,11 @@ function handleEnemeies() {
     for(let i =0; i < enemies.length; i++) {
         enemies[i].draw();
         enemies[i].update();
+
+        if(enemies[i].health <= 0) {
+            enemies[i].splice(1)
+            i--;
+        }
     }
 }
 
