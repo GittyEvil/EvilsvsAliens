@@ -180,9 +180,11 @@ function handleBullets() {
 
 
         for(let x=0; x < enemies.length;x++) {
-            if(/*projectiles[i] && enemies[x] &&*/ collision(projectiles[i],enemies[x])) {
-                enemies[x].health -=10;
+            if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
+                enemies[x].health -=5;
+                
             }
+
         }
     }
 
@@ -364,10 +366,12 @@ function handleEnemeies() {
     for(let i =0; i < enemies.length; i++) {
         enemies[i].draw();
         enemies[i].update();
-
-        if(enemies[i].health <= 0) {
-            enemies[i].splice(1)
+        //tar de skada så deras hp blir noll så försvinner dem
+        if(enemies[i].health == 0) {
+            enemies.splice(i,1)
             i--;
+            resources+=50;
+            console.log(resources)
         }
     }
 }
