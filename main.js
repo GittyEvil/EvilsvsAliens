@@ -8,7 +8,6 @@ const context = canvas.getContext('2d');
 canvas.width = 1700;
 canvas.height = 700;
 
-
 //för spelplanen
 const fieldSize = 100;
 const grid = [];
@@ -29,7 +28,6 @@ const enemies = [];
 //poängsystememt
 let score = 0;
 
-
 //den blåa toppbaren
 const bar = {
     width: canvas.width,
@@ -39,7 +37,6 @@ const bar = {
 när gameframe i loop blir t.ex. = 100 kommer en ny zombie in.
 */
 let gameFrame = 0;
-
 
 /*detta är för att se till att vänstra hörnet i canvasen blir 0,0.
 annars kan det vara vilket nummer som helst och det kan bli jobbit för
@@ -65,8 +62,6 @@ char2.src = 'characters/sniper.png';
 
 const char3 = new Image();
 char3.src = 'characters/doubleTrouble.png';
-
-
 
 // olika eventlisteners för musen
 
@@ -134,9 +129,9 @@ class Field {
             context.strokeStyle = 'black';
             context.strokeRect(this.x,this.y,this.width,this.height);
         }
-        
     }
 }
+
 //detta pushar ut en 100x100 ruta på spelplanen och den läggs i en lista(grid)
 function gameField() {
     for(let y=fieldSize; y < canvas.height; y += fieldSize) {
@@ -171,13 +166,17 @@ class Bullet {
     }
 }
 
-
 //hanterar skotten
 function handleBullets() {
     for(let i = 0; i < projectiles.length; i++) {
         projectiles[i].draw()
         projectiles[i].update()
 
+        //detta tar bort skotten efter att de försvunnit från canvasen
+        if(projectiles[i].x > canvas.width){
+            projectiles.splice(i,1)
+            i--;
+        }
 
         for(let x=0; x < enemies.length;x++) {
             if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
@@ -186,6 +185,7 @@ function handleBullets() {
             }
 
         }
+        
     }
 
 }
@@ -211,7 +211,7 @@ class Trooper {
     }
     update() {
         this.timer++;
-        if(this.timer %50 === 0) {
+        if(this.timer %100 === 0) {
             projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
@@ -237,7 +237,7 @@ class Sniper {
     }
     update() {
         this.timer++;
-        if(this.timer %50 == 0) {
+        if(this.timer %100 == 0) {
             projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
@@ -263,7 +263,7 @@ class DoubleTrouble {
     }
     update() {
         this.timer++;
-        if(this.timer %50 == 0) {
+        if(this.timer %100 == 0) {
             projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
@@ -317,7 +317,7 @@ class FlameEye {
 
     }
     update() {
-        this.x-=1;
+        this.x-=2;
     }
 }
 
@@ -328,7 +328,7 @@ class InfectedEye {
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100,
-        this.speed = 1;
+        this.speed = 2;
 
     }
     draw(){
@@ -340,7 +340,7 @@ class InfectedEye {
 
     }
     update() {
-        this.x-=1;
+        this.x-=0.5;
     }
 
 }
@@ -348,12 +348,23 @@ class InfectedEye {
 //detta spawnar motståndare beroende på frames
 function spawnEnemies() {
     gameFrame+=1;
-    let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize;
-    if(gameFrame%100 === 0) {
-        /*för att de inte ska placeras ut på samma rad så behövs math. random
+    /*för att de inte ska placeras ut på samma rad så behövs math. random
         sen gångra med 6 för 6 rader i canvas + 1 för att inte hamna i blåa baren
         */
-        enemies.push(new Eye(PositionY))
+    let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize;
+    if(gameFrame%100 === 0) {
+        
+        //slumpmässigt spawnar ut olika monster istället för bara en som jag hade innan
+        matte = Math.floor(Math.random()*3 + 1)
+        if(matte == 1 ) {
+            enemies.push(new Eye(PositionY))
+        }
+        if(matte == 2 ) {
+            enemies.push(new FlameEye(PositionY))
+        }
+        if(matte == 3 ) {
+            enemies.push(new InfectedEye(PositionY))
+        }   
     }
     
 }
@@ -368,7 +379,12 @@ function handleEnemeies() {
             enemies.splice(i,1)
             i--;
             resources+=50;
-            console.log(resources)
+        }
+        //om de går över vänstra kanten ska de tas bort.
+        if(enemies[i].x < 0) {
+            enemies.splice(i,1)
+            i--;
+            
         }
     }
 }
@@ -459,6 +475,10 @@ function animate(){
     context.clearRect(0,0,canvas.width,canvas.height)
     context.fillStyle = ' blue';
     context.fillRect(0,0,bar.width,bar.height);
+    //visar resurserna spelaren har simpelt(för nu)
+    context.fillStyle='gold';
+    context.font = '20px Arial'
+    context.fillText(resources,300,50,);
     handleField()
     spawnEnemies()
     handleCharacters()
