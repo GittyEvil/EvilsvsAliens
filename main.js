@@ -188,9 +188,6 @@ function handleBullets() {
         }
     }
 
-
-
-    
 }
 
 //klasser för karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
