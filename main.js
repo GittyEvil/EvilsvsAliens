@@ -295,7 +295,7 @@ class Eye {
         context.fillText(Math.floor(this.health),this.x, this.y);
     }
     update() {
-        this.x-=1;
+        this.x-=this.speed;
     }
 }
 
@@ -306,7 +306,7 @@ class FlameEye {
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100;
-        this.speed = 1;
+        this.speed = 2;
     }
     draw(){
         context.fillStyle='orange';
@@ -317,7 +317,7 @@ class FlameEye {
 
     }
     update() {
-        this.x-=2;
+        this.x-=this.speed;
     }
 }
 
@@ -328,7 +328,7 @@ class InfectedEye {
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100,
-        this.speed = 2;
+        this.speed = 0.5;
 
     }
     draw(){
@@ -340,7 +340,7 @@ class InfectedEye {
 
     }
     update() {
-        this.x-=0.5;
+        this.x-=this.speed;
     }
 
 }
@@ -380,13 +380,22 @@ function handleEnemeies() {
             i--;
             resources+=50;
         }
+        
         //om de går över vänstra kanten ska de tas bort.
         if(enemies[i].x < 0) {
             enemies.splice(i,1)
             i--;
             
         }
+        //ska kolla om spelarens karaktärer krockar med motståndare, om det stämmer blir deras speed = 0
+        for(x = 0; x < characters.length; x++) {
+            if(characters[x] && enemies[i] && collision(characters[x],enemies[i])) {
+                enemies[i].speed == 0;
+            }
+       }
+
     }
+
 }
 
 //bilderna uppe i vänstra hörn av spel/canvas
