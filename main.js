@@ -24,6 +24,7 @@ const projectiles = []
 
 //motståndare
 const enemies = [];
+let damage = 10;
 
 //poängsystememt
 let score = 0;
@@ -286,6 +287,7 @@ class Eye {
         this.height = fieldSize,
         this.health = 100;
         this.speed = 1;
+        this.damage = damage;
     }
     draw(){
         context.fillStyle='red';
@@ -307,6 +309,7 @@ class FlameEye {
         this.height = fieldSize,
         this.health = 100;
         this.speed = 2;
+        this.damage = damage;
     }
     draw(){
         context.fillStyle='orange';
@@ -329,6 +332,7 @@ class InfectedEye {
         this.height = fieldSize,
         this.health = 100,
         this.speed = 0.5;
+        this.damage = damage;
 
     }
     draw(){
@@ -379,18 +383,25 @@ function handleEnemeies() {
             enemies.splice(i,1)
             i--;
             resources+=50;
-        }
-        
-        //om de går över vänstra kanten ska de tas bort.
-        if(enemies[i].x < 0) {
+            //om de går över vänstra kanten ska de tas bort.
+        }else if (enemies[i].x < 0) {
             enemies.splice(i,1)
             i--;
             
         }
+        
         //ska kolla om spelarens karaktärer krockar med motståndare, om det stämmer blir deras speed = 0
         for(x = 0; x < characters.length; x++) {
             if(characters[x] && enemies[i] && collision(characters[x],enemies[i])) {
+                characters[x].health -= damage;
                 enemies[i].speed == 0;
+                enemies[i].x == 0;
+
+                //ifall de krockar tar tillräckligt med skada så dör de och försvinner
+                if(characters[x].health == 0) {
+                    characters.splice(x,1)
+                    x--;
+                }
             }
        }
 
