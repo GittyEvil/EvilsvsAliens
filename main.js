@@ -24,7 +24,7 @@ const projectiles = []
 
 //motståndare
 const enemies = [];
-let damage = 10;
+let damage = 1;
 
 //poängsystememt
 let score = 0;
@@ -394,13 +394,14 @@ function handleEnemeies() {
         for(x = 0; x < characters.length; x++) {
             if(characters[x] && enemies[i] && collision(characters[x],enemies[i])) {
                 characters[x].health -= damage;
-                enemies[i].speed == 0;
-                enemies[i].x == 0;
+                enemies[i].speed = 0;
+                
 
                 //ifall de krockar tar tillräckligt med skada så dör de och försvinner
-                if(characters[x].health == 0) {
+                if(characters[x].health <= 0) {
                     characters.splice(x,1)
                     x--;
+                    enemies[i].speed = 1
                 }
             }
        }
