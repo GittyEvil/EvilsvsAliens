@@ -401,7 +401,7 @@ function handleEnemeies() {
                 if(characters[x].health <= 0) {
                     characters.splice(x,1)
                     x--;
-                    enemies[i].speed = 1
+                    enemies[i].speed = 1;
                 }
             }
        }
