@@ -92,8 +92,8 @@ canvas.addEventListener('mousedown',function(){
 })
 
 canvas.addEventListener('click',function() {
-    const gridPositionX = mouse.x -(mouse.x % fieldSize)
-    const gridPositionY = mouse.y -(mouse.y % fieldSize)
+    const gridPositionX = mouse.x -(mouse.x % fieldSize) + 4
+    const gridPositionY = mouse.y -(mouse.y % fieldSize) + 2
     //är musen innanför/närheten av ett block/ruta så placerar man ut en trooper karaktär, detta ska ändras så man kan ändra för de 3 olika karaktärerna
 
     //detta hindrar spelaren från att placera ut karaktärer på blåa baren och första raden längst till vänster
@@ -196,8 +196,8 @@ class Trooper {
     constructor(x,y) {
         this.x=x,
         this.y=y,
-        this.width = fieldSize,
-        this.height = fieldSize,
+        this.width = fieldSize - 4,
+        this.height = fieldSize - 4,
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
@@ -222,8 +222,8 @@ class Sniper {
     constructor(x,y) {
         this.x=x,
         this.y=y,
-        this.width = fieldSize,
-        this.height = fieldSize,
+        this.width = fieldSize - 2,
+        this.height = fieldSize - 2,
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
@@ -248,8 +248,8 @@ class DoubleTrouble {
     constructor(x,y) {
         this.x=x,
         this.y=y,
-        this.width = fieldSize,
-        this.height = fieldSize,
+        this.width = fieldSize - 4,
+        this.height = fieldSize - 4,
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
