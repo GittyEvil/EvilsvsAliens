@@ -92,7 +92,7 @@ canvas.addEventListener('mousedown',function(){
 })
 
 canvas.addEventListener('click',function() {
-    const gridPositionX = mouse.x -(mouse.x % fieldSize) + 4
+    const gridPositionX = mouse.x -(mouse.x % fieldSize) 
     const gridPositionY = mouse.y -(mouse.y % fieldSize) + 2
     //är musen innanför/närheten av ett block/ruta så placerar man ut en trooper karaktär, detta ska ändras så man kan ändra för de 3 olika karaktärerna
 
@@ -359,14 +359,14 @@ function spawnEnemies() {
     if(gameFrame%100 === 0) {
         
         //slumpmässigt spawnar ut olika monster istället för bara en som jag hade innan
-        matte = Math.floor(Math.random()*3 + 1)
-        if(matte == 1 ) {
+        randomizedCharacter = Math.floor(Math.random()*3 + 1)
+        if(randomizedCharacter == 1 ) {
             enemies.push(new Eye(PositionY))
         }
-        if(matte == 2 ) {
+        if(randomizedCharacter == 2 ) {
             enemies.push(new FlameEye(PositionY))
         }
-        if(matte == 3 ) {
+        if(randomizedCharacter == 3 ) {
             enemies.push(new InfectedEye(PositionY))
         }   
     }
@@ -396,7 +396,6 @@ function handleEnemeies() {
                 characters[x].health -= damage;
                 enemies[i].speed = 0;
                 
-
                 //ifall de krockar tar tillräckligt med skada så dör de och försvinner
                 if(characters[x].health <= 0) {
                     characters.splice(x,1)
