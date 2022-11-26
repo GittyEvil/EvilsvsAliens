@@ -64,6 +64,15 @@ char2.src = 'characters/sniper.png';
 const char3 = new Image();
 char3.src = 'characters/doubleTrouble.png';
 
+const monst1 = new Image();
+monst1.src = 'characters/eye.png';
+
+const monst2 = new Image();
+monst2.src = 'characters/flame-eye.png';
+
+const monst3 = new Image();
+monst3.src = 'characters/infected-eye.png';
+
 // olika eventlisteners för musen
 
 canvas.addEventListener('mousemove', function(event){
@@ -181,7 +190,9 @@ function handleBullets() {
 
         for(let x=0; x < enemies.length;x++) {
             if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
-                enemies[x].health -=5;
+                enemies[x].health -=20;
+                projectiles.splice(i,1)
+                i--;
                 
             }
 
@@ -208,6 +219,7 @@ class Trooper {
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
+        context.drawImage(char1,this.x,this.y,this.width,this.height);
 
     }
     update() {
@@ -222,8 +234,8 @@ class Sniper {
     constructor(x,y) {
         this.x=x,
         this.y=y,
-        this.width = fieldSize - 2,
-        this.height = fieldSize - 2,
+        this.width = fieldSize - 4,
+        this.height = fieldSize - 4,
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
@@ -234,6 +246,7 @@ class Sniper {
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
+        context.drawImage(char2,this.x,this.y,this.width,this.height);
 
     }
     update() {
@@ -260,6 +273,7 @@ class DoubleTrouble {
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
+        context.drawImage(char3,this.x,this.y,this.width,this.height);
 
     }
     update() {
@@ -286,7 +300,7 @@ class Eye {
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100;
-        this.speed = 1;
+        this.speed = 1.5;
         this.damage = damage;
     }
     draw(){
@@ -295,6 +309,8 @@ class Eye {
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
+        context.drawImage(monst1,this.x,this.y,this.width,this.height);
+        
     }
     update() {
         this.x-=this.speed;
@@ -308,7 +324,7 @@ class FlameEye {
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100;
-        this.speed = 2;
+        this.speed = 2.5;
         this.damage = damage;
     }
     draw(){
@@ -317,6 +333,7 @@ class FlameEye {
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
+        context.drawImage(monst2,this.x,this.y,this.width,this.height);
 
     }
     update() {
@@ -331,7 +348,7 @@ class InfectedEye {
         this.width = fieldSize,
         this.height = fieldSize,
         this.health = 100,
-        this.speed = 0.5;
+        this.speed = 1;
         this.damage = damage;
 
     }
@@ -341,6 +358,7 @@ class InfectedEye {
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
+        context.drawImage(monst3,this.x,this.y,this.width,this.height);
 
     }
     update() {
@@ -379,7 +397,7 @@ function handleEnemeies() {
         enemies[i].draw();
         enemies[i].update();
         //tar de skada så deras hp blir noll så försvinner dem
-        if(enemies[i].health == 0) {
+        if(enemies[i].health <= 0) {
             enemies.splice(i,1)
             i--;
             resources+=50;
@@ -479,6 +497,77 @@ function chooseCharacter() {
     context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
 }
 
+const life1 = {
+    x:5,
+    y:105,
+    width: 90,
+    height:90,
+}
+const life2 = {
+    x:5,
+    y:205,
+    width: 90,
+    height:90,
+}
+
+const life3 = {
+    x:5,
+    y:305,
+    width: 90,
+    height:90,
+}
+
+const life4 = {
+    x:5,
+    y:405,
+    width: 90,
+    height:90,
+}
+
+const life5 = {
+    x:5,
+    y:505,
+    width: 90,
+    height:90,
+}
+
+const life6 = {
+    x:5,
+    y:605,
+    width: 90,
+    height:90,
+}
+
+//skapar liv här för att göra spelet roligare
+function handleLives() {
+
+    
+    context.strokeStyle = 'black'
+    context.strokeRect(life1.x,life1.y,life1.width,life1.height)
+    context.fillRect(life1.x,life1.y,life1.width,life1.height)
+
+    context.strokeStyle = 'black'
+    context.strokeRect(life2.x,life2.y,life2.width,life2.height)
+    context.fillRect(life2.x,life2.y,life2.width,life2.height)
+
+    context.strokeStyle = 'black'
+    context.strokeRect(life3.x,life3.y,life3.width,life3.height)
+    context.fillRect(life3.x,life3.y,life3.width,life3.height)
+
+    context.strokeStyle = 'black'
+    context.strokeRect(life4.x,life4.y,life4.width,life4.height)
+    context.fillRect(life4.x,life4.y,life4.width,life4.height)
+
+    context.strokeStyle = 'black'
+    context.strokeRect(life5.x,life5.y,life5.width,life5.height)
+    context.fillRect(life5.x,life5.y,life5.width,life5.height)
+
+    context.strokeStyle = 'black'
+    context.strokeRect(life6.x,life6.y,life6.width,life6.height)
+    context.fillRect(life6.x,life6.y,life6.width,life6.height)
+}
+
+
 //detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
 function collision(first, second) {
     if(!(first.x > second.x + second.width || 
@@ -498,12 +587,14 @@ function animate(){
     //visar resurserna spelaren har simpelt(för nu)
     context.fillStyle='gold';
     context.font = '20px Arial'
-    context.fillText(resources,300,50,);
+    context.fillText("Resources:",300,50)
+    context.fillText(resources,410,50,);
     handleField()
     spawnEnemies()
     handleCharacters()
     handleEnemeies()
     handleBullets()
+    handleLives()
     chooseCharacter()
     requestAnimationFrame(animate);
 }
