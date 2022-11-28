@@ -499,7 +499,7 @@ function chooseCharacter() {
     context.strokeRect(character3.x,character3.y,character3.width,character3.height)
     context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
 }
-
+//class för liv som spelaren kommer ha
 class Healthpack {
     constructor(x,y) {
         this.x = x 
@@ -511,6 +511,7 @@ class Healthpack {
 
     draw() {
         context.strokeStyle = 'black';
+        context.fillStyle = 'black';
         context.strokeRect(this.x,this.y,this.width,this.height)
     }
 
@@ -518,13 +519,25 @@ class Healthpack {
 
     }
 }
-
+//skapar en kolumn med en rad för liven
 function healthgrid() {
-
+    for(y=fieldSize; y < canvas.height; y+= fieldSize) {
+        for(x = 0; x < 100; x += fieldSize) {
+            healthpacks.push(new Healthpack(x,y))
+        }
+    }
+}
+healthgrid()
+//hanterar grid som skapats
+function handleHealthgrid() {
+    for(let i = 0; i < healthpacks.length; i++) {
+        healthpacks[i].draw()
+    }
 }
 
-function handleLives() {
 
+function handleLives() {
+    
 }
 
 //detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
@@ -553,6 +566,7 @@ function animate(){
     handleCharacters()
     handleEnemeies()
     handleBullets()
+    handleHealthgrid()
     chooseCharacter()
     requestAnimationFrame(animate);
 }
