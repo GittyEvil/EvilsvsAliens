@@ -13,6 +13,9 @@ const fieldSize = 100;
 const grid = [];
 const fieldGap = 3;
 
+//för liv
+const healthpacks = [];
+
 //spelarens karaktärer
 const characters = [];
 let characterCost = 100;
@@ -497,76 +500,32 @@ function chooseCharacter() {
     context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
 }
 
-const life1 = {
-    x:5,
-    y:105,
-    width: 90,
-    height:90,
-}
-const life2 = {
-    x:5,
-    y:205,
-    width: 90,
-    height:90,
+class Healthpack {
+    constructor(x,y) {
+        this.x = x 
+        this.y = y
+        this.width = fieldSize;
+        this.height = fieldSize;
+
+    }
+
+    draw() {
+        context.strokeStyle = 'black';
+        context.strokeRect(this.x,this.y,this.width,this.height)
+    }
+
+    update() {
+
+    }
 }
 
-const life3 = {
-    x:5,
-    y:305,
-    width: 90,
-    height:90,
+function healthgrid() {
+
 }
 
-const life4 = {
-    x:5,
-    y:405,
-    width: 90,
-    height:90,
-}
-
-const life5 = {
-    x:5,
-    y:505,
-    width: 90,
-    height:90,
-}
-
-const life6 = {
-    x:5,
-    y:605,
-    width: 90,
-    height:90,
-}
-
-//skapar liv här för att göra spelet roligare
 function handleLives() {
 
-    
-    context.strokeStyle = 'black'
-    context.strokeRect(life1.x,life1.y,life1.width,life1.height)
-    context.fillRect(life1.x,life1.y,life1.width,life1.height)
-
-    context.strokeStyle = 'black'
-    context.strokeRect(life2.x,life2.y,life2.width,life2.height)
-    context.fillRect(life2.x,life2.y,life2.width,life2.height)
-
-    context.strokeStyle = 'black'
-    context.strokeRect(life3.x,life3.y,life3.width,life3.height)
-    context.fillRect(life3.x,life3.y,life3.width,life3.height)
-
-    context.strokeStyle = 'black'
-    context.strokeRect(life4.x,life4.y,life4.width,life4.height)
-    context.fillRect(life4.x,life4.y,life4.width,life4.height)
-
-    context.strokeStyle = 'black'
-    context.strokeRect(life5.x,life5.y,life5.width,life5.height)
-    context.fillRect(life5.x,life5.y,life5.width,life5.height)
-
-    context.strokeStyle = 'black'
-    context.strokeRect(life6.x,life6.y,life6.width,life6.height)
-    context.fillRect(life6.x,life6.y,life6.width,life6.height)
 }
-
 
 //detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
 function collision(first, second) {
@@ -594,7 +553,6 @@ function animate(){
     handleCharacters()
     handleEnemeies()
     handleBullets()
-    handleLives()
     chooseCharacter()
     requestAnimationFrame(animate);
 }
