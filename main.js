@@ -499,6 +499,7 @@ function chooseCharacter() {
     context.strokeRect(character3.x,character3.y,character3.width,character3.height)
     context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
 }
+
 //class för liv som spelaren kommer ha
 class Healthpack {
     constructor(x,y) {
@@ -519,6 +520,7 @@ class Healthpack {
 
     }
 }
+
 //skapar en kolumn med en rad för liven
 function healthgrid() {
     for(y=fieldSize; y < canvas.height; y+= fieldSize) {
@@ -528,6 +530,7 @@ function healthgrid() {
     }
 }
 healthgrid()
+
 //hanterar grid som skapats
 function handleHealthgrid() {
     for(let i = 0; i < healthpacks.length; i++) {
@@ -537,7 +540,7 @@ function handleHealthgrid() {
 
 
 function handleLives() {
-    
+
 }
 
 //detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
