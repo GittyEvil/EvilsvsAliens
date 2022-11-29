@@ -300,8 +300,8 @@ class Eye {
     constructor(PositionY) {
         this.x=canvas.width,
         this.y=PositionY,
-        this.width = fieldSize,
-        this.height = fieldSize,
+        this.width = fieldSize, - 4
+        this.height = fieldSize, - 4
         this.health = 100;
         this.speed = 1.5;
         this.damage = damage;
@@ -324,8 +324,8 @@ class FlameEye {
     constructor(PositionY) {
         this.x=canvas.width,
         this.y=PositionY,
-        this.width = fieldSize,
-        this.height = fieldSize,
+        this.width = fieldSize- 4,
+        this.height = fieldSize- 4,
         this.health = 100;
         this.speed = 2.5;
         this.damage = damage;
@@ -348,8 +348,8 @@ class InfectedEye {
     constructor(PositionY) {
         this.x=canvas.width,
         this.y=PositionY,
-        this.width = fieldSize,
-        this.height = fieldSize,
+        this.width = fieldSize - 4,
+        this.height = fieldSize - 4,
         this.health = 100,
         this.speed = 1;
         this.damage = damage;
@@ -524,7 +524,7 @@ class Healthpack {
 //skapar en kolumn med en rad för liven
 function healthgrid() {
     for(y=fieldSize; y < canvas.height; y+= fieldSize) {
-        for(x = 0; x < 100; x += fieldSize) {
+        for(x = 0; x < fieldSize; x += fieldSize) {
             healthpacks.push(new Healthpack(x,y))
         }
     }
@@ -535,13 +535,22 @@ healthgrid()
 function handleHealthgrid() {
     for(let i = 0; i < healthpacks.length; i++) {
         healthpacks[i].draw()
+
+        for(let x=0; x < enemies.length;x++) {
+            if(healthpacks[i] && enemies[x] && collision(healthpacks[i],enemies[x])) {
+                healthpacks.splice(i,1)
+                i--;
+                
+            }
+
+            if(healthpacks.length === 0){
+                //fixa så när alla lådor borta = förlorat spelet
+            }
+
+        }
     }
 }
 
-
-function handleLives() {
-
-}
 
 //detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
 function collision(first, second) {
