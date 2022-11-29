@@ -300,15 +300,15 @@ class Eye {
     constructor(PositionY) {
         this.x=canvas.width,
         this.y=PositionY,
-        this.width = fieldSize, - 4
-        this.height = fieldSize, - 4
+        this.width = fieldSize
+        this.height = fieldSize - 4,
         this.health = 100;
         this.speed = 1.5;
         this.damage = damage;
     }
     draw(){
         context.fillStyle='red';
-        context.fillRect(this.x,this.y,this.width,this.health)
+        context.fillRect(this.x,this.y,this.width,this.height,this.health)
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -324,15 +324,15 @@ class FlameEye {
     constructor(PositionY) {
         this.x=canvas.width,
         this.y=PositionY,
-        this.width = fieldSize- 4,
-        this.height = fieldSize- 4,
+        this.width = fieldSize 
+        this.height = fieldSize - 4,
         this.health = 100;
         this.speed = 2.5;
         this.damage = damage;
     }
     draw(){
         context.fillStyle='orange';
-        context.fillRect(this.x,this.y,this.width,this.health)
+        context.fillRect(this.x,this.y,this.width,this.height,this.health)
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -348,7 +348,7 @@ class InfectedEye {
     constructor(PositionY) {
         this.x=canvas.width,
         this.y=PositionY,
-        this.width = fieldSize - 4,
+        this.width = fieldSize
         this.height = fieldSize - 4,
         this.health = 100,
         this.speed = 1;
@@ -357,7 +357,7 @@ class InfectedEye {
     }
     draw(){
         context.fillStyle='purple';
-        context.fillRect(this.x,this.y,this.width,this.health)
+        context.fillRect(this.x,this.y,this.width,this.height,this.health)
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -376,7 +376,7 @@ function spawnEnemies() {
     /*för att de inte ska placeras ut på samma rad så behövs math. random
         sen gångra med 6 för 6 rader i canvas + 1 för att inte hamna i blåa baren
         */
-    let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize;
+    let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize + 2;
     if(gameFrame%100 === 0) {
         
         //slumpmässigt spawnar ut olika monster istället för bara en som jag hade innan
