@@ -32,6 +32,10 @@ let damage = 1;
 //poängsystememt
 let score = 0;
 
+//för rundor
+let rounds = 0;
+let roundEnd = false;
+
 //den blåa toppbaren
 const bar = {
     width: canvas.width,
@@ -383,12 +387,15 @@ function spawnEnemies() {
         randomizedCharacter = Math.floor(Math.random()*3 + 1)
         if(randomizedCharacter == 1 ) {
             enemies.push(new Eye(PositionY))
+            rounds+=1;
         }
         if(randomizedCharacter == 2 ) {
             enemies.push(new FlameEye(PositionY))
+            rounds+=1;
         }
         if(randomizedCharacter == 3 ) {
             enemies.push(new InfectedEye(PositionY))
+            rounds+=1;
         }   
     }
     
@@ -396,6 +403,7 @@ function spawnEnemies() {
 
 //hanterar alla min motståndare
 function handleEnemeies() {
+
     for(let i =0; i < enemies.length; i++) {
         enemies[i].draw();
         enemies[i].update();
@@ -404,7 +412,7 @@ function handleEnemeies() {
             enemies.splice(i,1)
             i--;
             resources+=50;
-            //om de går över vänstra kanten ska de tas bort.
+            //om dem går över vänstra kanten ska de tas bort.
         }else if (enemies[i].x < 0) {
             enemies.splice(i,1)
             i--;
@@ -542,8 +550,11 @@ function handleHealthgrid() {
                 i--;
                 
             }
-
-            if(healthpacks.length === 0){
+            if(healthpacks.length === 0 || rounds === 20){
+                roundEnd = true;
+                context.fillStyle = 'black';
+                context.font = '20px Arial'
+                context.fillText("You Won",150,500)
                 //fixa så när alla lådor borta = förlorat spelet
             }
 
