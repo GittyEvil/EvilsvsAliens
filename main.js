@@ -554,7 +554,7 @@ function handleHealthgrid() {
             if(healthpacks.length === 0 || enemies[x].x < 0){
                 roundEnd = true;
                 context.fillStyle = 'black';
-                context.font = '20px Arial'
+                context.font = '200px Arial'
                 context.fillText("You Won",150,500)
                 //fixa så när alla lådor borta = förlorat spelet
             }
