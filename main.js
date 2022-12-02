@@ -519,9 +519,10 @@ class Healthpack {
     }
 
     draw() {
-        context.strokeStyle = 'black';
+        context.strokeStyle = 'gold';
         context.fillStyle = 'black';
         context.strokeRect(this.x,this.y,this.width,this.height)
+        context.fillRect(this.x,this.y,this.width,this.height)
     }
 
     update() {
