@@ -547,10 +547,11 @@ function handleHealthgrid() {
         for(let x=0; x < enemies.length;x++) {
             if(healthpacks[i] && enemies[x] && collision(healthpacks[i],enemies[x])) {
                 healthpacks.splice(i,1)
+                enemies.splice(x,1)
                 i--;
                 
             }
-            if(healthpacks.length === 0 || rounds === 20){
+            if(healthpacks.length === 0 || enemies[x].x < 0){
                 roundEnd = true;
                 context.fillStyle = 'black';
                 context.font = '20px Arial'
@@ -591,7 +592,7 @@ function animate(){
     handleBullets()
     handleHealthgrid()
     chooseCharacter()
-    requestAnimationFrame(animate);
+    if(!roundEnd)requestAnimationFrame(animate);
 }
 animate()
 
