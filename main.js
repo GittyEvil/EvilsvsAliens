@@ -88,7 +88,6 @@ canvas.addEventListener('mousemove', function(event){
     mouse.y = event.y - canvasPosition.top;
     
 });
-
 canvas.addEventListener('mouseleave',function(){
     mouse.x = undefined;
     mouse.y = undefined;
@@ -115,6 +114,13 @@ canvas.addEventListener('click',function() {
     //detta hindrar spelaren från att placera ut karaktärer på blåa baren och första raden längst till vänster
     if(gridPositionX < fieldSize) return;
     if(gridPositionY < fieldSize) return;
+
+    //detta kollar så att spelaren inte kan sätta ut flera karaktärer på samma ruta
+    for(let i = 0; i < characters.length;i++) {
+        if(characters[i].x === gridPositionX && characters[i].y === gridPositionY) {
+            return;
+        }
+    }
 
     if(resources >= characterCost && chosenCharacter=== 1) {
         characters.push(new Trooper(gridPositionX, gridPositionY))
@@ -222,7 +228,6 @@ class Trooper {
     }
     draw() {
         context.fillStyle = 'blue';
-        context.fillRect(this.x,this.y, this.width, this.height);
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -249,7 +254,6 @@ class Sniper {
     }
     draw() {
         context.fillStyle = 'green';
-        context.fillRect(this.x,this.y, this.width, this.height);
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -276,7 +280,6 @@ class DoubleTrouble {
     }
     draw() {
         context.fillStyle = 'pink';
-        context.fillRect(this.x,this.y, this.width, this.height);
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -312,7 +315,6 @@ class Eye {
     }
     draw(){
         context.fillStyle='red';
-        context.fillRect(this.x,this.y,this.width,this.height,this.health)
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -336,7 +338,6 @@ class FlameEye {
     }
     draw(){
         context.fillStyle='orange';
-        context.fillRect(this.x,this.y,this.width,this.height,this.health)
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
@@ -361,7 +362,6 @@ class InfectedEye {
     }
     draw(){
         context.fillStyle='purple';
-        context.fillRect(this.x,this.y,this.width,this.height,this.health)
         context.fillStyle='gold';
         context.font = '20px Arial'
         context.fillText(Math.floor(this.health),this.x, this.y);
