@@ -33,8 +33,9 @@ let damage = 1;
 let score = 0;
 
 //för rundor
-let rounds = 0;
+let rounds = 0; 
 let roundEnd = false;
+
 
 //den blåa toppbaren
 const bar = {
@@ -45,6 +46,7 @@ const bar = {
 när gameframe i loop blir t.ex. = 100 kommer en ny zombie in.
 */
 let gameFrame = 0;
+let enemyframe = 500;
 
 /*detta är för att se till att vänstra hörnet i canvasen blir 0,0.
 annars kan det vara vilket nummer som helst och det kan bli jobbit för
@@ -381,8 +383,11 @@ function spawnEnemies() {
         sen gångra med 6 för 6 rader i canvas + 1 för att inte hamna i blåa baren
         */
     let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize + 2;
-    if(gameFrame%100 === 0) {
-        
+    if(gameFrame%enemyframe === 0) {
+        if(enemyframe >100) {
+            enemyframe -=100;
+            console.log(enemyframe)
+        }
         //slumpmässigt spawnar ut olika monster istället för bara en som jag hade innan
         randomizedCharacter = Math.floor(Math.random()*3 + 1)
         if(randomizedCharacter == 1 ) {
@@ -404,7 +409,7 @@ function spawnEnemies() {
 //hanterar alla min motståndare
 function handleEnemeies() {
 
-    for(let i =0; i < enemies.length; i++) {
+    if(!roundEnd)for(let i =0; i < enemies.length; i++) {
         enemies[i].draw();
         enemies[i].update();
         //tar de skada så deras hp blir noll så försvinner dem
@@ -414,8 +419,8 @@ function handleEnemeies() {
             resources+=50;
             //om dem går över vänstra kanten ska de tas bort.
         }else if (enemies[i].x < 0) {
-            enemies.splice(i,1)
-            i--;
+            //enemies.splice(i,1)
+           //i--;
             
         }
         
@@ -433,7 +438,11 @@ function handleEnemeies() {
                 }
             }
        }
-
+       console.log(rounds)
+       if(rounds === 20) {
+            roundEnd = true;
+            context.fillText("You Won",150,500)
+       }
     }
 
 }
@@ -556,7 +565,7 @@ function handleHealthgrid() {
                 roundEnd = true;
                 context.fillStyle = 'black';
                 context.font = '200px Arial'
-                context.fillText("You Won",150,500)
+                context.fillText("You Lost",150,500)
                 //fixa så när alla lådor borta = förlorat spelet
             }
 
