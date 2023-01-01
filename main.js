@@ -227,6 +227,7 @@ class Trooper {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
+        this.damage = 20;
     }
     draw() {
         context.fillStyle = 'blue';
@@ -253,6 +254,7 @@ class Sniper {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
+        this.damage = 40;
     }
     draw() {
         context.fillStyle = 'green';
@@ -279,6 +281,7 @@ class DoubleTrouble {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
+        this.damage = 10;
     }
     draw() {
         context.fillStyle = 'pink';
@@ -385,8 +388,7 @@ function spawnEnemies() {
     let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize + 2;
     if(gameFrame%enemyframe === 0) {
         if(enemyframe >100) {
-            enemyframe -=100;
-            console.log(enemyframe)
+            enemyframe -=50;
         }
         //slumpmässigt spawnar ut olika monster istället för bara en som jag hade innan
         randomizedCharacter = Math.floor(Math.random()*3 + 1)
@@ -441,7 +443,9 @@ function handleEnemeies() {
        console.log(rounds)
        if(rounds === 20) {
             roundEnd = true;
-            context.fillText("You Won",150,500)
+            context.font = '200px Arial'
+            context.fillStyle = 'black'
+            context.fillText("You Won",150,500,)
        }
     }
 
@@ -564,7 +568,7 @@ function handleHealthgrid() {
             if(healthpacks.length === 0 || enemies[x].x < 0){
                 roundEnd = true;
                 context.fillStyle = 'black';
-                context.font = '200px Arial'
+                context.font = '200px Arial';
                 context.fillText("You Lost",150,500)
                 //fixa så när alla lådor borta = förlorat spelet
             }
