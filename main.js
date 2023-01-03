@@ -203,16 +203,17 @@ function handleBullets() {
             i--;
         }
 
-        for(let x=0; x < enemies.length;x++) {
-            if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
-                enemies[x].health -=20;
-                projectiles.splice(i,1)
-                i--;
-                
-            }
+        for(let j = 0; j < characters.length;j++) {
+            for(let x=0; x < enemies.length;x++) {
+                if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
+                    enemies[x].health -=characters[j].dmg;
+                    projectiles.splice(i,1)
+                    i--;
+                    
+                }
 
+            }
         }
-        
     }
 
 }
@@ -227,7 +228,7 @@ class Trooper {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
-        this.damage = 20;
+        this.dmg = 20;
     }
     draw() {
         context.fillStyle = 'blue';
@@ -254,7 +255,7 @@ class Sniper {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
-        this.damage = 40;
+        this.dmg = 40;
     }
     draw() {
         context.fillStyle = 'green';
@@ -266,7 +267,7 @@ class Sniper {
     }
     update() {
         this.timer++;
-        if(this.timer %100 == 0) {
+        if(this.timer %200 == 0) {
             projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
@@ -281,7 +282,7 @@ class DoubleTrouble {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
-        this.damage = 10;
+        this.dmg = 10;
     }
     draw() {
         context.fillStyle = 'pink';
@@ -293,7 +294,7 @@ class DoubleTrouble {
     }
     update() {
         this.timer++;
-        if(this.timer %100 == 0) {
+        if(this.timer %50 == 0) {
             projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
