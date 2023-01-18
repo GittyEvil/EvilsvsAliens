@@ -206,32 +206,6 @@ class Bullet {
     }
 }
 
-//hanterar skotten
-function handleBullets() {
-    for(let i = 0; i < projectiles.length; i++) {
-        projectiles[i].draw()
-        projectiles[i].update()
-
-        //detta tar bort skotten efter att de försvunnit från canvasen
-        if(projectiles[i].x > canvas.width){
-            projectiles.splice(i,1)
-            i--;
-        }
-
-        for(let j = 0; j < characters.length;j++) {
-            for(let x=0; x < enemies.length;x++) {
-                if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
-                    enemies[x].health -=characters[j].dmg;
-                    projectiles.splice(i,1)
-                    i--;
-                    
-                }
-
-            }
-        }
-    }
-
-}
 
 //klasser för karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
 class Trooper {
@@ -391,6 +365,33 @@ class InfectedEye {
     }
     update() {
         this.x-=this.speed;
+    }
+
+}
+
+//hanterar skotten
+function handleBullets() {
+    for(let i = 0; i < projectiles.length; i++) {
+        projectiles[i].draw()
+        projectiles[i].update()
+
+        //detta tar bort skotten efter att de försvunnit från canvasen
+        if(projectiles[i].x > canvas.width){
+            projectiles.splice(i,1)
+            i--;
+        }
+
+        for(let j = 0; j < characters.length;j++) {
+            for(let x=0; x < enemies.length;x++) {
+                if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
+                    enemies[x].health -=characters[j].dmg;
+                    projectiles.splice(i,1)
+                    i--;
+                    
+                }
+
+            }
+        }
     }
 
 }
