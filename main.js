@@ -82,6 +82,27 @@ monst2.src = 'characters/flame-eye.png';
 const monst3 = new Image();
 monst3.src = 'characters/infected-eye.png';
 
+//bilderna uppe i vänstra hörn av spel/canvas
+const character1 = {
+    x:10,
+    y:10,
+    width:70,
+    height:85,
+}
+const character2 = {
+    x:90,
+    y:10,
+    width:70,
+    height:85,
+}
+const character3 = {
+    x:170,
+    y:10,
+    width:70,
+    height:85,
+}
+
+
 // olika eventlisteners för musen
 
 canvas.addEventListener('mousemove', function(event){
@@ -140,6 +161,16 @@ canvas.addEventListener('click',function() {
 
 });
 
+//detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
+function collision(first, second) {
+    if(!(first.x > second.x + second.width || 
+        first.x +first.width < second.x ||
+        first.y > second.y + second.height ||
+        first.y + first.height < second.y )) {
+            return true;
+        }
+}
+
 //spelplanen
 class Field {
     constructor(x,y) {
@@ -154,22 +185,6 @@ class Field {
             context.strokeStyle = 'black';
             context.strokeRect(this.x,this.y,this.width,this.height);
         }
-    }
-}
-
-//detta pushar ut en 100x100 ruta på spelplanen och den läggs i en lista(grid)
-function gameField() {
-    for(let y=fieldSize; y < canvas.height; y += fieldSize) {
-        for(let x=0; x < canvas.width; x += fieldSize) {
-            grid.push(new Field(x,y))
-        }        
-    }
-}
-gameField()
-//hanterar spelplanen så att alla fyrkanter kommer ut och man sedan kan se til latt det inte blir för många rutor
-function handleField() {
-    for(i=0;i < grid.length; i++) {
-        grid[i].draw();
     }
 }
 
@@ -189,32 +204,6 @@ class Bullet {
     update() {
         this.x +=10;
     }
-}
-
-//hanterar skotten
-function handleBullets() {
-    for(let i = 0; i < projectiles.length; i++) {
-        projectiles[i].draw()
-        projectiles[i].update()
-
-        //detta tar bort skotten efter att de försvunnit från canvasen
-        if(projectiles[i].x > canvas.width){
-            projectiles.splice(i,1)
-            i--;
-        }
-
-        for(let x=0; x < enemies.length;x++) {
-            if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
-                enemies[x].health -=20;
-                projectiles.splice(i,1)
-                i--;
-                
-            }
-
-        }
-        
-    }
-
 }
 
 //klasser för karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
@@ -376,6 +365,73 @@ class InfectedEye {
 
 }
 
+//class för liv som spelaren kommer ha
+class Healthpack {
+    constructor(x,y) {
+        this.x = x 
+        this.y = y
+        this.width = fieldSize;
+        this.height = fieldSize;
+
+    }
+
+    draw() {
+        context.strokeStyle = 'gold';
+        context.fillStyle = 'black';
+        context.strokeRect(this.x,this.y,this.width,this.height)
+        context.fillRect(this.x,this.y,this.width,this.height)
+    }
+
+    update() {
+
+    }
+}
+
+//detta pushar ut en 100x100 ruta på spelplanen och den läggs i en lista(grid)
+function gameField() {
+    for(let y=fieldSize; y < canvas.height; y += fieldSize) {
+        for(let x=0; x < canvas.width; x += fieldSize) {
+            grid.push(new Field(x,y))
+        }        
+    }
+}
+gameField()
+//hanterar spelplanen så att alla fyrkanter kommer ut och man sedan kan se til latt det inte blir för många rutor
+function handleField() {
+    for(i=0;i < grid.length; i++) {
+        grid[i].draw();
+    }
+}
+
+
+//hanterar skotten
+function handleBullets() {
+    for(let i = 0; i < projectiles.length; i++) {
+        projectiles[i].draw()
+        projectiles[i].update()
+
+        //detta tar bort skotten efter att de försvunnit från canvasen
+        if(projectiles[i].x > canvas.width){
+            projectiles.splice(i,1)
+            i--;
+        }
+
+        for(let x=0; x < enemies.length;x++) {
+            if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
+                enemies[x].health -=20;
+                projectiles.splice(i,1)
+                i--;
+                
+            }
+
+        }
+        
+    }
+
+}
+
+
+
 //detta spawnar motståndare beroende på frames
 function spawnEnemies() {
     gameFrame+=1;
@@ -447,26 +503,6 @@ function handleEnemeies() {
 
 }
 
-//bilderna uppe i vänstra hörn av spel/canvas
-const character1 = {
-    x:10,
-    y:10,
-    width:70,
-    height:85,
-}
-const character2 = {
-    x:90,
-    y:10,
-    width:70,
-    height:85,
-}
-const character3 = {
-    x:170,
-    y:10,
-    width:70,
-    height:85,
-}
-
 //detta ska bli ikonerna där man sedan kommer välja vilken karaktär man vill placera ut.
 function chooseCharacter() {
     //kollar om mus krockar med blocket för karaktär 1 och det stämmer så blir chosencharacter 1
@@ -517,27 +553,6 @@ function chooseCharacter() {
     context.drawImage(char3,0,0,194,194,150,5,194/2,194/2);
 }
 
-//class för liv som spelaren kommer ha
-class Healthpack {
-    constructor(x,y) {
-        this.x = x 
-        this.y = y
-        this.width = fieldSize;
-        this.height = fieldSize;
-
-    }
-
-    draw() {
-        context.strokeStyle = 'gold';
-        context.fillStyle = 'black';
-        context.strokeRect(this.x,this.y,this.width,this.height)
-        context.fillRect(this.x,this.y,this.width,this.height)
-    }
-
-    update() {
-
-    }
-}
 
 //skapar en kolumn med en rad för liven
 function healthgrid() {
@@ -572,18 +587,6 @@ function handleHealthgrid() {
         }
     }
 }
-
-
-//detta är en collision detector, som enkelt kollar om två objekt krockar, kommer användas mycket
-function collision(first, second) {
-    if(!(first.x > second.x + second.width || 
-        first.x +first.width < second.x ||
-        first.y > second.y + second.height ||
-        first.y + first.height < second.y )) {
-            return true;
-        }
-}
-
 
 //animations loop som loopas om och om igen, kommer köra och uppdatera saker hela tiden(gör att spelet funkar)
 function animate(){
