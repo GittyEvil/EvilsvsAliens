@@ -206,6 +206,33 @@ class Bullet {
     }
 }
 
+//hanterar skotten
+function handleBullets() {
+    for(let i = 0; i < projectiles.length; i++) {
+        projectiles[i].draw()
+        projectiles[i].update()
+
+        //detta tar bort skotten efter att de försvunnit från canvasen
+        if(projectiles[i].x > canvas.width){
+            projectiles.splice(i,1)
+            i--;
+        }
+
+        for(let j = 0; j < characters.length;j++) {
+            for(let x=0; x < enemies.length;x++) {
+                if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
+                    enemies[x].health -=characters[j].dmg;
+                    projectiles.splice(i,1)
+                    i--;
+                    
+                }
+
+            }
+        }
+    }
+
+}
+
 //klasser för karaktärer, ska testa att fixa så de är i separata filer(har inte fått det att funka än)
 class Trooper {
     constructor(x,y) {
@@ -216,6 +243,7 @@ class Trooper {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
+        this.dmg = 20;
     }
     draw() {
         context.fillStyle = 'blue';
@@ -242,6 +270,7 @@ class Sniper {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
+        this.dmg = 40;
     }
     draw() {
         context.fillStyle = 'green';
@@ -253,7 +282,7 @@ class Sniper {
     }
     update() {
         this.timer++;
-        if(this.timer %100 == 0) {
+        if(this.timer %200 == 0) {
             projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
@@ -268,6 +297,7 @@ class DoubleTrouble {
         this.health = 100,
         this.shooting= false,
         this.timer = 0;
+        this.dmg = 10;
     }
     draw() {
         context.fillStyle = 'pink';
@@ -279,7 +309,7 @@ class DoubleTrouble {
     }
     update() {
         this.timer++;
-        if(this.timer %100 == 0) {
+        if(this.timer %50 == 0) {
             projectiles.push(new Bullet(this.x+100,this.y+40))
         }
     }
@@ -441,8 +471,7 @@ function spawnEnemies() {
     let PositionY = Math.floor(Math.random() * 6 + 1) * fieldSize + 2;
     if(gameFrame%enemyframe === 0) {
         if(enemyframe >100) {
-            enemyframe -=100;
-            console.log(enemyframe)
+            enemyframe -=50;
         }
         //slumpmässigt spawnar ut olika monster istället för bara en som jag hade innan
         randomizedCharacter = Math.floor(Math.random()*3 + 1)
@@ -497,7 +526,9 @@ function handleEnemeies() {
        console.log(rounds)
        if(rounds === 20) {
             roundEnd = true;
-            context.fillText("You Won",150,500)
+            context.font = '200px Arial'
+            context.fillStyle = 'black'
+            context.fillText("You Won",150,500,)
        }
     }
 
@@ -579,7 +610,7 @@ function handleHealthgrid() {
             if(healthpacks.length === 0 || enemies[x].x < 0){
                 roundEnd = true;
                 context.fillStyle = 'black';
-                context.font = '200px Arial'
+                context.font = '200px Arial';
                 context.fillText("You Lost",150,500)
                 //fixa så när alla lådor borta = förlorat spelet
             }
