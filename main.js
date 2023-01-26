@@ -362,6 +362,29 @@ class InfectedEye {
 
 }
 
+//class för liv som spelaren kommer ha
+class Healthpack {
+    constructor(x,y) {
+        this.x = x 
+        this.y = y
+        this.width = fieldSize;
+        this.height = fieldSize;
+
+    }
+
+    draw() {
+        context.strokeStyle = 'gold';
+        context.fillStyle = 'black';
+        context.strokeRect(this.x,this.y,this.width,this.height)
+        context.fillRect(this.x,this.y,this.width,this.height)
+    }
+
+    update() {
+
+    }
+}
+
+
 
 //detta pushar ut en 100x100 ruta på spelplanen och den läggs i en lista(grid)
 function gameField() {
@@ -459,27 +482,6 @@ function handleEnemeies() {
 
 }
 
-//class för liv som spelaren kommer ha
-class Healthpack {
-    constructor(x,y) {
-        this.x = x 
-        this.y = y
-        this.width = fieldSize;
-        this.height = fieldSize;
-
-    }
-
-    draw() {
-        context.strokeStyle = 'gold';
-        context.fillStyle = 'black';
-        context.strokeRect(this.x,this.y,this.width,this.height)
-        context.fillRect(this.x,this.y,this.width,this.height)
-    }
-
-    update() {
-
-    }
-}
 
 //hanterar skotten
 function handleBullets() {
