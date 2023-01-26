@@ -289,13 +289,6 @@ class DoubleTrouble {
     }
 }
 
-//hanterar (spelarens) karaktärer
-function handleCharacters() {
-    for(let i =0; i < characters.length; i++) {
-        characters[i].draw();
-        characters[i].update();
-    }
-}
 
 //klasser för enemies
 class Eye {
@@ -369,54 +362,6 @@ class InfectedEye {
 
 }
 
-//hanterar skotten
-function handleBullets() {
-    for(let i = 0; i < projectiles.length; i++) {
-        projectiles[i].draw()
-        projectiles[i].update()
-
-        //detta tar bort skotten efter att de försvunnit från canvasen
-        if(projectiles[i].x > canvas.width){
-            projectiles.splice(i,1)
-            i--;
-        }
-
-        for(let j = 0; j < characters.length;j++) {
-            for(let x=0; x < enemies.length;x++) {
-                if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
-                    enemies[x].health -=characters[j].dmg;
-                    projectiles.splice(i,1)
-                    i--;
-                    
-                }
-
-            }
-        }
-    }
-
-}
-
-//class för liv som spelaren kommer ha
-class Healthpack {
-    constructor(x,y) {
-        this.x = x 
-        this.y = y
-        this.width = fieldSize;
-        this.height = fieldSize;
-
-    }
-
-    draw() {
-        context.strokeStyle = 'gold';
-        context.fillStyle = 'black';
-        context.strokeRect(this.x,this.y,this.width,this.height)
-        context.fillRect(this.x,this.y,this.width,this.height)
-    }
-
-    update() {
-
-    }
-}
 
 //detta pushar ut en 100x100 ruta på spelplanen och den läggs i en lista(grid)
 function gameField() {
@@ -434,34 +379,13 @@ function handleField() {
     }
 }
 
-
-//hanterar skotten
-function handleBullets() {
-    for(let i = 0; i < projectiles.length; i++) {
-        projectiles[i].draw()
-        projectiles[i].update()
-
-        //detta tar bort skotten efter att de försvunnit från canvasen
-        if(projectiles[i].x > canvas.width){
-            projectiles.splice(i,1)
-            i--;
-        }
-
-        for(let x=0; x < enemies.length;x++) {
-            if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
-                enemies[x].health -=20;
-                projectiles.splice(i,1)
-                i--;
-                
-            }
-
-        }
-        
+//hanterar (spelarens) karaktärer
+function handleCharacters() {
+    for(let i =0; i < characters.length; i++) {
+        characters[i].draw();
+        characters[i].update();
     }
-
 }
-
-
 
 //detta spawnar motståndare beroende på frames
 function spawnEnemies() {
@@ -531,6 +455,55 @@ function handleEnemeies() {
             context.fillStyle = 'black'
             context.fillText("You Won",150,500,)
        }
+    }
+
+}
+
+//class för liv som spelaren kommer ha
+class Healthpack {
+    constructor(x,y) {
+        this.x = x 
+        this.y = y
+        this.width = fieldSize;
+        this.height = fieldSize;
+
+    }
+
+    draw() {
+        context.strokeStyle = 'gold';
+        context.fillStyle = 'black';
+        context.strokeRect(this.x,this.y,this.width,this.height)
+        context.fillRect(this.x,this.y,this.width,this.height)
+    }
+
+    update() {
+
+    }
+}
+
+//hanterar skotten
+function handleBullets() {
+    for(let i = 0; i < projectiles.length; i++) {
+        projectiles[i].draw()
+        projectiles[i].update()
+
+        //detta tar bort skotten efter att de försvunnit från canvasen
+        if(projectiles[i].x > canvas.width){
+            projectiles.splice(i,1)
+            i--;
+        }
+
+        for(let j = 0; j < characters.length;j++) {
+            for(let x=0; x < enemies.length;x++) {
+                if(projectiles[i] && enemies[x] && collision(projectiles[i],enemies[x])) {
+                    enemies[x].health -=characters[j].dmg;
+                    projectiles.splice(i,1)
+                    i--;
+                    
+                }
+
+            }
+        }
     }
 
 }
